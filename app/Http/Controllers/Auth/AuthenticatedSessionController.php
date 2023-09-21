@@ -12,6 +12,21 @@ use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
+    public function index()
+    {
+        if(Auth::id()){
+            $role = Auth()->user()->role;
+            
+            if ($role== 'super_admin') {
+                return view('superAdmin.superAdminHome');
+            } elseif ($role== 'admin') {
+                return view('admin.adminHome');
+            } else {
+                return view('Dashboard');
+            }
+        }
+    }
+    
     /**
      * Display the login view.
      */

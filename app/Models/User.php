@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Attribute;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        // 'google2fa_secret'
     ];
 
     /**
@@ -31,6 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+        // 'google2fa_secret',
     ];
 
     /**
@@ -42,4 +45,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    protected function google2faSecret(): Attribute
+    {
+        return new Attribute(
+            get:fn ($value) => decrypt($value),
+            set:fn ($value) => encrypt($value),
+        );
+    }
 }
