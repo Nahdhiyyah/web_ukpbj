@@ -21,6 +21,21 @@
                     <button class="p-6" style="background-color: darkgray">
                         <a href="{{ route('tender') }}">Data Tender</a>
                     </button>
+                    <button class="p-6" style="background-color: darkgray">
+                        <a href="{{ route('non_tender') }}">Data Non Tender</a>
+                    </button>
+                    <button class="p-6" style="background-color: darkgray">
+                        <a href="{{ route('e_purchasing') }}">Data E-Purchasing</a>
+                    </button>
+                    <button class="p-6" style="background-color: darkgray">
+                        <a href="{{ route('penyedia') }}">Data Penyedia</a>
+                    </button>
+                    <button class="p-6" style="background-color: darkgray">
+                        <a href="{{ route('swakelola') }}">Data Swakelola</a>
+                    </button>
+                    <button class="p-6" style="background-color: darkgray">
+                        <a href="{{ route('gallery') }}">Gallery</a>
+                    </button>
                 </div>
             </div>
         </div>

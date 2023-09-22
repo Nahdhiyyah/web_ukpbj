@@ -8,7 +8,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\Publikasi\PengumumanController;
 use App\Http\Controllers\Admin\Publikasi\BeritaController;
 use App\Http\Controllers\Admin\Data_Pengadaan\TenderController;
-
+use App\Http\Controllers\Admin\Data_Pengadaan\NonTenderController;
+use App\Http\Controllers\Admin\Data_Pengadaan\E_PurchasingController;
+use App\Http\Controllers\Admin\Data_Pengadaan\SirupPenyediaController;
+use App\Http\Controllers\Admin\Data_Pengadaan\SirupSwakelolaController;
+use App\Http\Controllers\Admin\GalleryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,8 +51,20 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumuman');
+    
     Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
+    
     Route::get('/tender', [TenderController::class, 'index'])->name('tender');  
+
+    Route::get('/non_tender', [NonTenderController::class, 'index'])->name('non_tender');
+
+    Route::get('/e_purchasing', [E_PurchasingController::class, 'index'])->name('e_purchasing');
+
+    Route::get('/penyedia', [SirupPenyediaController::class, 'index'])->name('penyedia');
+
+    Route::get('/swakelola', [SirupSwakelolaController::class, 'index'])->name('swakelola');
+
+    Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 });
 
 

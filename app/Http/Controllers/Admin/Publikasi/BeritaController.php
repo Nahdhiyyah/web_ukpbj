@@ -19,7 +19,7 @@ class BeritaController extends Controller
             if ($role == 'admin') {
                 return view('admin.berita');
             } else {
-                Auth::logout();
+                return view('error');
             }
         }
     }

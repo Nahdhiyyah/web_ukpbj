@@ -19,7 +19,7 @@ class TenderController extends Controller
             if ($role == 'admin'){
                 return view('admin.tender');
             } else {
-                Auth::logout();
+                return view('error');
             }
         }
     }
