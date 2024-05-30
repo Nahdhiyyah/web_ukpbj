@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class NonTender extends Model
 {
     use HasFactory;
-    public $table = 'non_tenders';
+    public $table = 'ukpbj.non_tenders';
     protected $fillable = [
         "tahun_anggaran",
         "kd_klpd",

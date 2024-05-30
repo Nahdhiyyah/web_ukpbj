@@ -1,5 +1,6 @@
 @extends('user.main')
 @section('navbar')
+    {{-- @auth --}}
     <!DOCTYPE html>
     <html lang="en">
 
@@ -21,13 +22,13 @@
 
     <body>
         <div class="container-fluid px-5 py-3">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            {{-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <p>{{ Auth::user()->name }}</p>
-                <small>{{ '('.Auth::user()->role.')'}}</small>
+                <small>{{ '(' . Auth::user()->role . ')' }}</small>
                 <a href="{{ route('profile.edit') }}" target="_blank">
                     <img src="{{ asset('/storage/users-avatar/' . Auth::user()->avatar) }}" class="circle mx-auto"
                         style="width: 30px; height:30px; border-radius: 50%; object-fit: cover"></a>
-            </div>
+            </div> --}}
         </div>
         <div class="container-fluid">
             <div class="container">
@@ -40,11 +41,11 @@
             <div class="card shadow py-5 my-3 mx-5" style="border: none">
                 <div class="row px-5">
                     <div class="col-lg-6 pr-auto">
-                        <img class="img-fluid" src="public/img/konsultasi 4.png" alt="konsultasi" width="500px"
+                        <img class="img-fluid" src="public/img/konsultasi.png" alt="konsultasi" width="500px"
                             style="float: right;">
                     </div>
                     <div class="col-lg-6 my-auto px-2">
-                        <h2>Hai, {{ Auth::user()->name }}</h2>
+                        {{-- <h2>Hai, {{ Auth::user()->name }}</h2> --}}
                         <h2>Ada yang bisa kami bantu ?</h2>
                         <a href="{{ route('daftar.konsul.user') }}" class="btn btn-primary"
                             style="background-color: #8C0C14; border:none" type="button">Konsultasikan Sekarang !</a>
@@ -55,4 +56,5 @@
     </body>
 
     </html>
+    {{-- @endauth --}}
 @endsection

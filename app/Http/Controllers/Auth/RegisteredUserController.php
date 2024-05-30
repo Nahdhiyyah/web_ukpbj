@@ -12,18 +12,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-// use PragmaRX\Google2FAQRCode\Google2FA;
 
 class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.
      */
-
-
-    // use RegisteredUserController {
-    //     register as registration;
-    // }
     
     public function create(): View
     {
@@ -41,13 +35,14 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'g-recaptcha-response' => 'required|captcha'
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            // 'google2fa_secret' => $request->google2fa_secret
+            'g-recaptcha-response' => 'required|captcha'
         ]);
 
         event(new Registered($user));

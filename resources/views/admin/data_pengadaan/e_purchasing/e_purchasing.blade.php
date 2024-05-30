@@ -24,7 +24,7 @@
                                     </div>
                                 </div>
 
-                                <table class="table table-striped" id="example" style="width:100%">
+                                <table class="table" id="example" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>

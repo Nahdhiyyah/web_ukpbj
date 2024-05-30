@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SwakelolaModel extends Model
 {
     use HasFactory;
-    public $table= 'swakelolas';
+    public $table= 'ukpbj.swakelolas';
     protected $fillable = [
         'tahun_anggaran',
         'kd_klpd',

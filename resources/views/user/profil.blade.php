@@ -93,16 +93,12 @@
                     barang/jasa; dand. pelaksanaan tugas
                     lain yang diberikan oleh kepala daerah
                     yang berkaitan dengan tugas dan fungsi</p>
-
-
-
                 <h1 class="col-lg-6 col-md-12 py-5 " style="text-align: center;">Fungsi UKPBJ</h1>
             </div>
         </div>
 
-
         <div class="center">
-            <iframe src="{{ asset('/storage/document/PERBUP_88_TAHUN_2021_SOTK_SETDA1.pdf') }}" width="800"
+            <iframe class="p-5" src="{{ asset('/storage/document/PERBUP_88_TAHUN_2021_SOTK_SETDA1.pdf') }}" width="100%"
                 height="600"></iframe>
         </div>
     </body>

@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -15,24 +15,23 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = User::class;
+
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            // 'id' => 12,
+            'name' => 'Nadia',
+            'email' => 'alpmamdcvmxbbcmzzcrga@gmail.com',
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'password' => 'nadiaaaa',
+            'avatar' => 'avatar.png',
+            'no_telp' => 'Belum ada nomor telepon',
+            // 'remember_token' => null,
+            // 'created_at'=> '2024-05-26 14:06:18',
+            // 'updated_at' => '2024-05-26 14:07:58',
+            'role' => 'user',
+            // 'google2fa_secret' => null
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
     }
 }

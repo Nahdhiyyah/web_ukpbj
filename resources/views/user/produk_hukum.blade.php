@@ -19,7 +19,7 @@
                             <th>Nomor</th>
                             <th>Tahun</th>
                             <th>Tentang</th>
-                            <th>Action</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="table">
@@ -35,7 +35,7 @@
                                 <td>{!! html_entity_decode($item->isi) !!}</td>
                                 <td class="text-center">
                                     <a href="{{ asset('/storage/produks/' . $item->file) }}" target="_blank"
-                                        style="color: #8C0C14"><i class="bi bi-eye"></i></a>
+                                        style="color: #8C0C14"><button class="btn btn-sm btn-dark border-0" style="background-color: #8C0C14; width:75px">Lihat</button></a>
                                 </td>
                             </tr>
                         @endforeach

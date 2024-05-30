@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Publikasi;
 
+use Alert;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Pengumuman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Alert;
 
 class PengumumanController extends Controller
 {
@@ -22,15 +22,15 @@ class PengumumanController extends Controller
 
             if ($role == 'admin' || $role == 'super_admin') {
 
-                $pengumuman = Pengumuman::orderBy('created_at', 'desc')->get();
+                $pengumuman = Pengumuman::where('is_deleted', 'no')->orderBy('created_at', 'desc')->get();
 
                 return view('admin.pengumuman.pengumuman')->with([
                     'pengumuman' => $pengumuman,
                 ]);
 
             } else {
-                // return view('user.error');
-                Alert::error('error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
+                Alert::error('Error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
+
                 return back();
             }
         }
@@ -66,8 +66,11 @@ class PengumumanController extends Controller
         $document = $request->file('document');
         $document->storeAs('public/document', $document->getClientOriginalName());
 
+        $user_id = Auth::user()->id;
+
         //create post
         Pengumuman::create([
+            'user_id' => $user_id,
             'judul' => $request->judul,
             'isi' => $request->isi,
             'tanggal' => $request->tanggal,
@@ -75,7 +78,7 @@ class PengumumanController extends Controller
             'gambar' => $image->hashName(),
             'document' => $document->getClientOriginalName(),
         ]);
-        
+
         Alert::success('Success', 'Pengumuman anda berhasil disimpan!');
 
         //redirect to index
@@ -173,16 +176,14 @@ class PengumumanController extends Controller
      */
     public function destroy(string $id)
     {
-        $pengumuman = Pengumuman::findOrFail($id);
+        $is_deleted = 'yes';
+        $query = Staff::findOrFail($id)->update(['is_deleted' => $is_deleted]);
 
-        //delete image
-        Storage::delete('public/pengumuman'.$pengumuman->gambar);
-        Storage::delete('public/document'.$pengumuman->document);
-
-        //delete post
-        $pengumuman->delete();
-        
-        Alert::success('Success', 'Pengumuman anda berhasil dihapus!');
+        if ($query == true) {
+            Alert::success('success', 'Data berhasil dihapus!');
+        } else {
+            Alert::error('Error', 'Data gagal dihapus');
+        }
 
         //redirect to index
         return redirect()->route('pengumuman.index');

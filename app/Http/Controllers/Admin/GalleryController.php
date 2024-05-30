@@ -16,8 +16,6 @@ class GalleryController extends Controller
      */
     public function index()
     {
-
-        // $pagination = 10;
         if (Auth::id()) {
             $role = Auth()->user()->role;
             if ($role == 'admin' || $role == 'super_admin') {
@@ -25,8 +23,7 @@ class GalleryController extends Controller
 
                 return view('admin.gallery.gallery')->with('gallery', $gallery);
             } else {
-                // return view('user.error');
-                Alert::error('error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
+                Alert::error('Error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
                 return back();
             }
         }
@@ -49,6 +46,7 @@ class GalleryController extends Controller
             'judul' => 'required',
             'tanggal' => 'required',
             'gambar' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'kategori' => 'required'
         ]);
 
         //upload image
@@ -60,6 +58,7 @@ class GalleryController extends Controller
             'judul' => $request->judul,
             'tanggal' => $request->tanggal,
             'gambar' => $image->hashName(),
+            'kategori' => $request->kategori,
         ]);
         
         Alert::success('Success', 'Gallery anda berhasil disimpan!');
@@ -75,7 +74,6 @@ class GalleryController extends Controller
     public function show(string $id)
     {
         $gallery = Gallery::findOrFail($id);
-
         return view('admin.gallery.show', compact('gallery'));
     }
 
@@ -85,7 +83,6 @@ class GalleryController extends Controller
     public function edit(string $id)
     {
         $gallery = Gallery::findorfail($id);
-
         return view('admin.gallery.edit', compact('gallery'));
     }
 
@@ -108,6 +105,7 @@ class GalleryController extends Controller
             $gallery->update([
                 'judul' => $request->judul,
                 'tanggal' => $request->tanggal,
+                'kategori' => $request->kategori,
             ]);
 
         } else {
@@ -123,6 +121,7 @@ class GalleryController extends Controller
                 'judul' => $request->judul,
                 'tanggal' => $request->tanggal,
                 'gambar' => $image->hashName(),
+                'kategori' => $request->kategori,
             ]);
 
         }

@@ -26,8 +26,7 @@ class MateriController extends Controller
 
             } else {
                 // return view('user.error');
-                Alert::error('error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
-
+                Alert::error('Error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
                 return back();
             }
         }

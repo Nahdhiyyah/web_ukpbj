@@ -4,18 +4,16 @@
     @auth
         <x-app-layout>
             <div class="content-wrapper">
-                <div class="container mt-5 mb-5" style="padding-top: 0.5cm">
+                <div class="container-fluid" style="padding-top: 0.5cm">
                     <div class="row justify-content-center">
-                        <div class="col-md-8">
-                            <div class="card border-0 shadow-sm rounded">
-                                <div class="card-body">
-                                    <img src="{{ asset('storage/gallery/' . $gallery->gambar) }}" class="w-100 rounded">
-                                    <hr>
-                                    <h4>{{ $gallery->judul }}</h4>
-                                    <p class="tmt-3">
-                                        {{ $gallery->tanggal }}
-                                    </p>
-                                </div>
+                        <div class="col">
+                            <div class="card border-0 p-5 shadow-sm rounded">
+                                <img src="{{ asset('storage/gallery/' . $gallery->gambar) }}" width="300px" height="300px" style="object-fit: cover" class="rounded">
+                                <hr>
+                                <h4>{{ $gallery->judul }}</h4>
+                                <p class="tmt-3">
+                                    {{ $gallery->tanggal }}
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ use App\Models\Admin\Berita;
 use App\Models\Admin\E_Purchasing;
 use App\Models\Admin\NonTender;
 use App\Models\Admin\SwakelolaModel;
+use App\Models\Admin\TenderModel;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectRespons;
 use Illuminate\Support\Facades\Storage;
@@ -26,15 +27,10 @@ class Beranda extends Controller
         $e_purchasing = E_Purchasing::get();
         $non_tender = NonTender::get();
         $p_swakelola = SwakelolaModel::get();
-        $tender = DB::table('tender')->get();
-        return view('user.beranda', compact('pengumuman', 'berita', 'e_purchasing', 'non_tender', 'p_swakelola', 'tender'));
+        // $tender = TenderModel::get();
+        return view('user.beranda', compact('pengumuman', 'berita', 'e_purchasing', 'non_tender', 'p_swakelola'));
     }
 
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-    
     /**
      * Show the form for creating a new resource.
      */

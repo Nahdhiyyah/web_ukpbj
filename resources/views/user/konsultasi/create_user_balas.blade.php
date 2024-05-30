@@ -1,5 +1,4 @@
 @extends('user.main')
-{{-- @section('title', 'Balasan') --}}
 @section('navbar')
     @auth
         <div class="container mt-5 mb-5" style="padding-top: 0.5cm">
@@ -8,22 +7,25 @@
                     <div class="col-md-12">
                         <div class="card border-0 shadow rounded">
                             <div class="card-body">
-                                <form action="{{ route('store.balas.user', $user_balas->id) }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('store.balas.user', $user_balas->id) }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
-                                    <div class="mb-3 row">
+                                    <div class="mb-5 row">
                                         <label class="col-sm-2 col-form-label">Isi Balasan</label>
                                         <div class="col-md-10">
-                                            <textarea type="text" class="form-control textarea @error('message') is-invalid @enderror" name="balasan"
+                                            <textarea type="text" class="form-control @error('balasan') is-invalid @enderror" name="balasan"
                                                 placeholder="Tulis pesan balasan anda di sini"></textarea>
                                         </div>
 
                                         <!-- error message untuk title -->
-                                        @error('message')
+                                        @error('balasan')
                                             <div class="alert alert-danger mt-2">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
+                                    
+
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                         <button type="submit" class="btn btn-md btn-primary"
                                             style="background-color: #8C0C14; border:none">Kirim Balasan</button>
@@ -40,7 +42,7 @@
         <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 
         <script>
-            CKEDITOR.replace('content');
+            CKEDITOR.replace('balasan');
         </script>
     @endauth
 @endsection

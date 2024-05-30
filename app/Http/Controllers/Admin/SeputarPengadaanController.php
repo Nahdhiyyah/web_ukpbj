@@ -28,8 +28,7 @@ class SeputarPengadaanController extends Controller
 
             } else {
                 // return view('user.error');
-                Alert::error('error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
-
+                Alert::error('Error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
                 return back();
             }
         }
@@ -77,7 +76,7 @@ class SeputarPengadaanController extends Controller
     {
         //validate form
         $this->validate($request, [
-            'file' => 'file|mimes:doc,docx,xls,xlsx,pdf,jpg,jpeg,png,bmps, post_max_size = 8M',
+            'file' => 'file|mimes:pdf, post_max_size = 8M',
             'judul' => 'required',
             'isi' => 'required',
         ]);

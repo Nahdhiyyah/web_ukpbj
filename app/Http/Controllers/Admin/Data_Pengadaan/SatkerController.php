@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Data_Pengadaan;
 
+use Alert;
 use App\Http\Controllers\Controller;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Alert;
 
 class SatkerController extends Controller
 {
@@ -15,15 +15,19 @@ class SatkerController extends Controller
      */
     public function index(Request $request)
     {
-        // $pagination = 10;
 
         if (Auth::id()) {
             $role = Auth()->user()->role;
             if ($role == 'admin' || $role == 'super_admin') {
                 $ta = date('Y');
-                $satker = DB::table('satkers')
-                    ->where('satkers.kd_satker_str', '<=', 22)
-                    ->select('satkers.kd_klpd', 'satkers.nama_klpd', 'satkers.jenis_klpd', 'satkers.kd_satker', 'satkers.kd_satker_str', 'satkers.nama_satker')
+                $satker = DB::table('satker')
+                    ->where('satker.kd_satker_str', '<=', 22)
+                    ->select('satker.kd_klpd',
+                        'satker.nama_klpd',
+                        'satker.jenis_klpd',
+                        'satker.kd_satker',
+                        'satker.kd_satker_str',
+                        'satker.nama_satker')
                     ->get();
 
                 return view('admin.data_pengadaan.satker')->with(
@@ -31,58 +35,10 @@ class SatkerController extends Controller
                 );
 
             } else {
-                // return view('error');
-                Alert::error('error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
+                Alert::error('Error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
+
                 return back();
             }
         }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

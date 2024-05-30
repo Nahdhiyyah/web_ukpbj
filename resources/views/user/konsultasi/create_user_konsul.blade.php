@@ -26,12 +26,12 @@
                                 <div class="mb-3 row">
                                     <label class="col-sm-2 col-form-label">Isi Konsultasi</label>
                                     <div class="col-md-10">
-                                        <textarea type="text" class="form-control textarea @error('message') is-invalid @enderror" name="message"
+                                        <textarea type="text" class="form-control textarea @error('isi') is-invalid @enderror" name="isi"
                                             placeholder="Apa yang ingin anda konsultasikan?"></textarea>
                                     </div>
 
                                     <!-- error message untuk title -->
-                                    @error('message')
+                                    @error('isi')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
                                         </div>
@@ -67,7 +67,7 @@
         <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 
         <script>
-            CKEDITOR.replace('navbar');
+            CKEDITOR.replace('message');
         </script>
     @endauth
 @endsection

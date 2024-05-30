@@ -34,13 +34,13 @@
                                     <div class="mb-3 row">
                                         <label class="col-sm-2 col-form-label">Message</label>
                                         <div class="col-md-10">
-                                            <textarea type="text" autocomplete="off" class="form-control textarea @error('message') is-invalid @enderror"
-                                                name="message" value="{{ old('message', $user_konsul->message) }}" placeholder="Apa yang ingin anda konsultasikan?"
-                                                id="message">{{ $user_konsul->message }}</textarea>
+                                            <textarea type="text" autocomplete="off" class="form-control textarea @error('isi') is-invalid @enderror"
+                                                name="isi" value="{{ old('isi', $user_konsul->isi) }}" placeholder="Apa yang ingin anda konsultasikan?"
+                                                id="isi">{{ $user_konsul->isi }}</textarea>
                                         </div>
 
                                         <!-- error message untuk title -->
-                                        @error('message')
+                                        @error('isi')
                                             <div class="alert alert-danger mt-2">
                                                 {{ $message }}
                                             </div>
@@ -53,8 +53,14 @@
                                                 name="attachment" id="attachment">
 
                                             <small> <i class="fas fa-paperclip"></i>
-                                                <a href="{{ asset('/storage/konsultasi/' . $user_konsul->attachment) }}"
-                                                    target="_blank" style="color: #8C0C14">{{ $user_konsul->attachment }}</a>
+                                                @if ($user_konsul->attachment == 1)
+                                                    <a href="{{ asset('/storage/konsultasi/' . $user_konsul->attachment) }}"
+                                                        target="_blank"
+                                                        style="color: #8C0C14">{{ $user_konsul->attachment }}</a>
+                                                    </p>
+                                                @else
+                                                    <small><i>{{ $user_konsul->attachment }}</i></small>
+                                                @endif
                                             </small>
                                         </div>
 
@@ -77,12 +83,9 @@
                 </div>
             </div>
 
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-                integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
             <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('content');
+                CKEDITOR.replace('message');
             </script>
         </div>
 

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Data_Pengadaan;
 
+use Alert;
 use App\Http\Controllers\Controller;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Alert;
 
 class E_PurchasingController extends Controller
 {
@@ -23,7 +23,7 @@ class E_PurchasingController extends Controller
 
                 $e_purchasing = DB::table('e_purchasing')
                     ->leftJoin('komoditas', 'komoditas.kd_komoditas', '=', 'e_purchasing.kd_komoditas')
-                    ->leftJoin('satkers', 'satkers.kd_satker', '=', 'e_purchasing.satker_id')
+                    ->leftJoin('satker', 'satker.kd_satker', '=', 'e_purchasing.satker_id')
                     ->select('e_purchasing.no_paket',
                         'e_purchasing.nama_paket',
                         'e_purchasing.total',
@@ -32,9 +32,9 @@ class E_PurchasingController extends Controller
                         'e_purchasing.jml_jenis_produk',
                         'e_purchasing.kd_produk',
                         'e_purchasing.ongkos_kirim',
-                        'satkers.nama_satker',
-                        'satkers.kd_satker',
-                        'satkers.kd_satker_str',
+                        'satker.nama_satker',
+                        'satker.kd_satker',
+                        'satker.kd_satker_str',
                         'komoditas.nama_komoditas',
                         'komoditas.jenis_katalog')
                     ->where('tahun_anggaran', $ta)
@@ -48,7 +48,8 @@ class E_PurchasingController extends Controller
             } else {
 
                 Alert::error('Error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
-                // return view('user.error');
+
+                return back();
             }
         }
     }
@@ -57,7 +58,7 @@ class E_PurchasingController extends Controller
     {
         $ta = date('Y');
         $no_paket = DB::table('e_purchasing')
-            ->leftJoin('satkers', 'satkers.kd_satker', '=', 'e_purchasing.satker_id')
+            ->leftJoin('satker', 'satkers.kd_satker', '=', 'e_purchasing.satker_id')
             ->where('no_paket', $no_paket)
             ->select('e_purchasing.no_paket',
                 'e_purchasing.nama_paket',
@@ -67,8 +68,8 @@ class E_PurchasingController extends Controller
                 'e_purchasing.jml_jenis_produk',
                 'e_purchasing.kd_produk',
                 'e_purchasing.ongkos_kirim',
-                'satkers.nama_satker',
-                'satkers.kd_satker')
+                'satker.nama_satker',
+                'satker.kd_satker')
             ->get();
 
         return View('admin.data_pengadaan.e_purchasing.detail_paket')->with('paket', $no_paket);
@@ -79,7 +80,7 @@ class E_PurchasingController extends Controller
     {
         $ta = date('Y');
         $kd_satker = DB::table('e_purchasing')
-            ->leftJoin('satkers', 'satkers.kd_satker', '=', 'e_purchasing.satker_id')
+            ->leftJoin('satker', 'satker.kd_satker', '=', 'e_purchasing.satker_id')
             ->where('kd_satker', $kd_satker)
             ->select('e_purchasing.no_paket',
                 'e_purchasing.nama_paket',
@@ -89,8 +90,8 @@ class E_PurchasingController extends Controller
                 'e_purchasing.jml_jenis_produk',
                 'e_purchasing.kd_produk',
                 'e_purchasing.ongkos_kirim',
-                'satkers.nama_satker',
-                'satkers.kd_satker')
+                'satker.nama_satker',
+                'satker.kd_satker')
             ->get();
 
         return View('admin.data_pengadaan.e_purchasing.detail_satker_epurchasing')->with('satker', $kd_satker);
@@ -165,6 +166,7 @@ class E_PurchasingController extends Controller
             ]);
         }
         Alert::success('success', 'Data E-Purchasing berhasil disimpan!');
+
         return redirect()->route('e_purchasing.index');
     }
 
@@ -205,8 +207,8 @@ class E_PurchasingController extends Controller
                 }
             }
 
-
             Alert::success('success', 'Data Komoditas berhasil disimpan!');
+
             return redirect()->route('e_purchasing.index');
         }
 
@@ -226,10 +228,10 @@ class E_PurchasingController extends Controller
         $finalarray = [];
 
         // data yang direload dihapus terlebih dahulu
-        DB::table('satkers')->delete();
+        DB::table('satker')->delete();
 
         foreach ($jsonData as $key) {
-            DB::table('satkers')->insert([
+            DB::table('satker')->insert([
                 'kd_klpd' => $key['kd_klpd'],
                 'nama_klpd' => $key['nama_klpd'],
                 'jenis_klpd' => $key['jenis_klpd'],
@@ -238,41 +240,10 @@ class E_PurchasingController extends Controller
                 'nama_satker' => $key['nama_satker'],
             ]);
         }
-        
+
         Alert::success('success', 'Data Satuan Kerja berhasil disimpan!');
+
         return redirect()->route('satker.index');
-
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
 
     }
 }

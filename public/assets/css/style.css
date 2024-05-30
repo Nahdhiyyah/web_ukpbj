@@ -14,7 +14,7 @@ body {
 }
 
 a {
-  color: #3498db;
+  color: #8C0C14;
   text-decoration: none;
 }
 
@@ -43,6 +43,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 4px;
   transition: all 0.4s;
 }
+
 .back-to-top i {
   font-size: 28px;
   color: #fff;

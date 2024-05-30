@@ -14,8 +14,9 @@
                 <table id="example" class="table" style="width:100%;">
                     <thead class="table">
                         <tr>
-                            <th>No</th>
+                            <th style="width: 10%">No</th>
                             <th>Judul</th>
+                            <th style="width: 20%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="table">
@@ -25,7 +26,11 @@
                         @foreach ($pengumuman as $item)
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td><a href="{{ route('show.pengumuman.home', $item->id) }}"> {{ $item->judul }}</a>
+                                <td>{{ $item->judul }}</td>
+                                <td><a href="{{ route('show.pengumuman.home', $item->id) }}" target="_blank">
+                                        <button class="btn btn-sm btn-dark border-0"
+                                            style="background-color: #8C0C14; width: 75px">Lihat</button>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

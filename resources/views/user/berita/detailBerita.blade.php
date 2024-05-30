@@ -1,5 +1,4 @@
 @extends('user.main')
-
 @section('navbar')
     <!DOCTYPE html>
     <html lang="en">
@@ -31,15 +30,22 @@
             </div>
         </div>
 
-        <div class="container-fluid p-5">
-            <div class="card px-5 py-5 shadow-lg">
+        <div class="container-fluid">
+            <div class="card border-0 shadow-sm rounded p-5">
                 <div class="row">
-                    <center class="pb-4">
-                        <img src="{{ asset('/storage/berita/' . $berita->gambar) }}" style="width: 400px; align: center"
-                            class="center" alt="">
-                    </center>
-                    <h1 class="center" style="text-align: justify;">{{ $berita->judul }}</h1>
-                    <div style="color: black">{!!html_entity_decode($berita->isi)!!}</div>
+                    <img class="mx-auto" src="{{ asset('storage/berita/' . $berita->gambar) }}" height="300px"
+                        width="600px" class="w-50 rounded" style="object-fit: cover">
+                </div>
+                <hr>
+                <div class="row">
+                    <h4><b>{{ $berita->judul }}</b></h4>
+                </div>
+
+                <p class="mb-3">{!! html_entity_decode($berita->isi) !!}</p>
+
+                <div class="row">
+                    <small>{{ $berita->user->name }}</small>
+                    <small><i class="far fa-calendar-alt"></i> {{ $berita->tanggal }}</small>
                 </div>
             </div>
         </div>

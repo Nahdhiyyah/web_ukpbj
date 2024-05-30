@@ -21,13 +21,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function edituser(Request $request): View
-    {
-        return view('profile.edituser', [
-            'user' => $request->user(),
-        ]);
-    }
-
     /**
      * Update the user's profile information.
      */
@@ -38,6 +31,21 @@ class ProfileController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+
+        if ($request->user()->isDirty('avatar')) {
+            if ($request->user()->avatar && file_exists(storage_path('public/users-avatar/'.$request->user()->avatar))) {
+                Storage::delete('public/users-avatar/'.$request->avatar);
+            }
+
+            $file = $request->file('avatar'); // Ambil objek file dari request
+
+            $fileName = $file->getClientOriginalName(); // Dapatkan ekstensi file
+
+            $file->storeAs('public/users-avatar/'. $fileName); // Pindahkan file ke direktori yang diinginkan
+
+            $request->user()->avatar = $fileName;
+        }
+
 
         $request->user()->save();
 

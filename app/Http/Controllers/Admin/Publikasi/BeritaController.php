@@ -16,21 +16,20 @@ class BeritaController extends Controller
      */
     public function index(Request $request)
     {
-
         if (Auth::id()) {
             $role = Auth()->user()->role;
             if ($role == 'admin' || $role == 'super_admin') {
-                
-                $berita = Berita::orderBy('created_at', 'desc')->get();
+
+                $berita = Berita::where('is_deleted', 'no')->orderBy('created_at', 'desc')->get();
 
                 return view('admin.berita.berita')->with([
                     'berita' => $berita,
                 ]);
 
             } else {
-                // return view('user.error');
-                Alert::error('error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
+                Alert::error('Error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
 
+                return back();
             }
         }
     }
@@ -41,7 +40,6 @@ class BeritaController extends Controller
     public function create()
     {
         return view('admin.berita.create');
-
     }
 
     /**
@@ -58,17 +56,21 @@ class BeritaController extends Controller
             'gambar' => 'required|image|mimes:jpeg,jpg,png|max:2048',
         ]);
 
+        $user_id = Auth::user()->id;
+
         //upload image
         $image = $request->file('gambar');
         $image->storeAs('public/berita', $image->hashName());
 
         //create post
         Berita::create([
+            'user_id' => $user_id,
             'judul' => $request->judul,
             'isi' => $request->isi,
             'tanggal' => $request->tanggal,
             'waktu' => $request->waktu,
             'gambar' => $image->hashName(),
+
         ]);
 
         Alert::success('Success', 'Berita anda berhasil disimpan!');
@@ -121,6 +123,7 @@ class BeritaController extends Controller
                 'isi' => $request->isi,
                 'tanggal' => $request->tanggal,
                 'waktu' => $request->waktu,
+
             ]);
 
         } else {
@@ -152,15 +155,14 @@ class BeritaController extends Controller
      */
     public function destroy(string $id)
     {
-        $berita = Berita::findOrFail($id);
+        $is_deleted = 'yes';
+        $query = Staff::findOrFail($id)->update(['is_deleted' => $is_deleted]);
 
-        //delete image
-        Storage::delete('public/berita'.$berita->gambar);
-
-        //delete post
-        $berita->delete();
-
-        Alert::success('success', 'Data Berita anda berhasil dihapus!');
+        if ($query == true) {
+            Alert::success('success', 'Data berhasil dihapus!');
+        } else {
+            Alert::error('Error', 'Data gagal dihapus');
+        }
 
         //redirect to index
         return redirect()->route('berita.index');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Berita;
+use DB;
 
 class BeritaHome extends Controller
 {
@@ -39,7 +40,15 @@ class BeritaHome extends Controller
     public function show(string $id)
     {
         $berita = Berita::findOrFail($id);
-        return view('user.berita.detailberita', compact('berita'));
+        $join = DB::table('beritas')
+                    ->join('users', 'beritas.user_id', '=', 'users.id')
+                    ->select('beritas.id as berita_id',
+                        'beritas.*',
+                        'users.id as user_id',
+                        'users.name',
+                        'users.avatar')
+                    ->get();
+        return view('user.berita.detailberita', compact('berita', 'join'));
     }
 
     /**

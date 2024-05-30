@@ -29,6 +29,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
+            'g-recaptcha-response' => 'required|captcha'
         ];
     }
 
@@ -46,6 +47,7 @@ class LoginRequest extends FormRequest
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
+                'g-recaptcha-response' => 'required|captcha'
             ]);
         }
 

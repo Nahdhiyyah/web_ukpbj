@@ -4,10 +4,11 @@
     @auth
         {{-- <x-app-layout> --}}
         <div class="content-wrapper">
-            <div class="container mt-5 mb-5" style="padding-top: 0.5cm">
+            <div class="container-fluid" style="padding-top: 0.5cm">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card border-0 shadow rounded">
+                        <div class="card border-0 p-5 shadow rounded">
+                            <h3 class="mx-auto">Edit Produk Hukum</h3>
                             <div class="card-body">
                                 <form action="{{ route('prohum.update', $produk->id) }}" method="POST"
                                     enctype="multipart/form-data">
@@ -52,10 +53,10 @@
 
                                     <div class="form-group">
                                         <label class="font-weight-bold">TAHUN</label>
-                                        <input type="text" id="tahun"
+                                        <input type="number" id="tahun"
                                             class="form-control @error('tahun') is-invalid @enderror" name="tahun"
                                             value="{{ old('tahun', $produk->tahun) }}"
-                                            placeholder="Masukkan Tahun Produk Hukum">
+                                            placeholder="Masukkan Tahun Produk Hukum" min="1950" max="2030">
 
                                         <!-- error message untuk title -->
                                         @error('tahun')
@@ -67,7 +68,7 @@
 
                                     <div class="form-group">
                                         <label class="font-weight-bold">ISI</label>
-                                        <textarea id="isi" class="form-control @error('isi') is-invalid @enderror" name="isi" rows="5"
+                                        <textarea id="isi" class="form-control textarea @error('isi') is-invalid @enderror" name="isi" rows="5"
                                             placeholder="Masukkan Isi Produk Hukum">{{ old('isi', $produk->isi) }}</textarea>
 
                                         <!-- error message untuk content -->
@@ -78,7 +79,7 @@
                                         @enderror
                                     </div>
 
-                                    <button type="submit" class="btn btn-md btn-primary">UPDATE</button>
+                                    <button type="submit" class="btn btn-md btn-primary" style="background-color: #8C0C14; border:none">UPDATE</button>
                                     <button type="reset" class="btn btn-md btn-warning">RESET</button>
 
                                 </form>
@@ -88,15 +89,10 @@
                 </div>
             </div>
 
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-                integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            {{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
-            <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
             <script>
                 CKEDITOR.replace('isi');
             </script>
         </div>
-        {{-- </x-app-layout> --}}
+     
     @endauth
 @endsection

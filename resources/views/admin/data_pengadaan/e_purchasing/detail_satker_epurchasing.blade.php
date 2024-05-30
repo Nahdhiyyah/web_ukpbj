@@ -21,7 +21,7 @@
 
                                 </div>
 
-                                <table class="table table-striped my-3 " id="example" style="width:100%">
+                                <table class="table my-3 " id="example" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>

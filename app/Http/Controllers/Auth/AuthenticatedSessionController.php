@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use DB;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -17,12 +18,9 @@ class AuthenticatedSessionController extends Controller
         if (Auth::id()) {
             $role = Auth()->user()->role;
 
-            if ($role == 'super_admin') {
-                return view('admin.adminHome');
-            } elseif ($role == 'admin') {
-                return view('admin.adminHome');
+            if ($role == 'super_admin' || $role == 'admin') {
+                return redirect()->route('admin');
             } else {
-                // return view('user.beranda');
                 return redirect()->route('home');
             }
         }
@@ -59,6 +57,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        // return redirect('/');
+        return redirect()->route('home');
     }
 }

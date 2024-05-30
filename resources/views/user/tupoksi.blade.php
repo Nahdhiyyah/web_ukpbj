@@ -34,7 +34,7 @@
             <iframe class="text-center" src="{{ asset('/storage/document/tupoksi.pdf') }}" width="800"
                 height="900" height="600"></iframe>
         </div>
-
+        
     </body>
 
     </html>

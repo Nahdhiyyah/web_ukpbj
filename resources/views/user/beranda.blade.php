@@ -47,7 +47,6 @@
     <body>
         <!-- Carousel Start -->
         <div class="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
-
             <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="0" class="active"
@@ -94,7 +93,7 @@
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px; ">
                     <h6 class="section-title bg-white text-center px-2" style="color: #8C0C14;">Data Paket Pengadaan
                         Barang
-                        Dan Jasa</h6>
+                        Dan Jasax <?php echo session()->GET('sess_ta'); ?></h6>
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -103,7 +102,9 @@
                             {{-- <i class="fa fa-certificate fa-4x text-primary mb-4"></i> --}}
                             <img class="img-fluid rounded mb-4" src="public/img/1.png" alt="">
                             <h5 class="mb-3">Tender</h5>
-                            <h1 class="display-5 mb-0" data-toggle="counter-up">{{number_format($tender->count(), 0, ',', '.')}}</h1>
+                            <h1 class="display-5 mb-0" data-toggle="counter-up">
+                                {{-- {{ number_format($tender->count(), 0, ',', '.') }} --}}
+                            </h1>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
@@ -111,16 +112,18 @@
                             {{-- <i class="fa fa-users-cog fa-4x text-primary mb-4"></i> --}}
                             <img class="img-fluid rounded mb-4" src="public/img/2.png" alt="">
                             <h5 class="mb-3">Non Tender</h5>
-                            <h1 class="display-5 mb-0" data-toggle="counter-up">{{number_format($non_tender->count(), 0, ',', '.')}}</h1>
+                            <h1 class="display-5 mb-0" data-toggle="counter-up">
+                                {{ number_format($non_tender->count(), 0, ',', '.') }}</h1>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <a href="{{route('e_purchasing.home')}}">
+                        <a href="{{ route('e_purchasing.home') }}">
                             <div class="fact-item bg-light rounded text-center h-100 p-5">
                                 {{-- <i class="fa fa-users fa-4x text-primary mb-4"></i> --}}
                                 <img class="img-fluid rounded mb-4" src="public/img/3.png" alt="">
                                 <h5 class="mb-3">E-Purchasing</h5>
-                                <h1 class="display-5 mb-0" data-toggle="counter-up">{{number_format($e_purchasing->count(), 0, ',', '.')}}</h1>
+                                <h1 class="display-5 mb-0" data-toggle="counter-up">
+                                    {{ number_format($e_purchasing->count(), 0, ',', '.') }}</h1>
                             </div>
                         </a>
                     </div>
@@ -129,57 +132,13 @@
                             {{-- <i class="fa fa-check fa-4x text-primary mb-4"></i> --}}
                             <img class="img-fluid rounded mb-4" src="public/img/4.png" alt="">
                             <h5 class="mb-3">Pencatatan</h5>
-                            <h1 class="display-5 mb-0" data-toggle="counter-up">{{number_format($p_swakelola->count(), 0, ',', '.')}}</h1>
+                            <h1 class="display-5 mb-0" data-toggle="counter-up">
+                                {{ number_format($p_swakelola->count(), 0, ',', '.') }}</h1>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-        <!-- Data Paket Pengadaan Barang Dan Jasa Start -->
-        {{-- <div class="container-fluid py-5 px-5">
-            <div class="container-fluid">
-                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px; ">
-                    <h6 class="section-title bg-white text-center px-2" style="color: #8C0C14;">Data Paket Pengadaan
-                        Barang
-                        Dan Jasa</h6>
-                </div>
-                <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="service-item d-block rounded text-center h-100 p-4" href="">
-                            <img class="img-fluid rounded mb-4" src="public/img/1.png" alt="">
-                            <h4> Tender </h4>
-                        </a>
-
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <a class="service-item d-block rounded text-center h-100 p-4" href="">
-                            <img class="img-fluid rounded mb-4" src="public/img/2.png" alt="">
-                            <h4>Non Tender</h4>
-                        </a>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <a class="service-item d-block rounded text-center h-100 p-4"
-                            href="{{ route('e_purchasing.home') }}">
-                            <img class="img-fluid rounded mb-4" src="public/img/3.png" alt="">
-                            <h4 class="mb-0">E - Purchasing</h4>
-                        </a>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="service-item d-block rounded text-center h-100 p-4" href="">
-                            <img class="img-fluid rounded mb-4" src="public/img/4.png" alt="">
-                            <h4 class="mb-0">Pencatatan</h4>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-        <!-- End -->
-
-
 
         <!-- Pengumuman Start -->
         <div class="container-fluid py-5">
@@ -222,11 +181,12 @@
                     @endphp
                     @foreach ($berita as $item)
                         {{-- <div class="project-item border rounded h-100 p-4" data-dot="01"> --}}
-                        <div class="card p-3" data-dot="{{ $no++ }}">
+                        <div class="card border-0 shadow p-3 h-100 my-5" data-dot="{{ $no++ }}">
                             <div class="position-relative mb-4">
-                                <img class="img-fluid rounded" src="{{ asset('/storage/berita/' . $item->gambar) }}"
-                                    alt="">
-                                {{-- <a href="img/project-1.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a> --}}
+                                <img class="img-fluid rounded mx-auto"
+                                    src="{{ asset('/storage/berita/' . $item->gambar) }}" alt="" height="50px"
+                                    style="object-fit: cover">
+                                {{-- <a href="img/project-1.jpg" type="img" src="{{ asset('/storage/berita/' . $item->gambar) }}" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a> --}}
                             </div>
                             <h6>{{ $item->judul }}</h6>
                             <span>{!! Str::words(strip_tags($item->isi), $limit = 20, $end = ' ...') !!}</span>
@@ -243,22 +203,6 @@
             </div>
         </div>
         <!-- Berita End -->
-        {{-- @include('footer') --}}
-
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="public/lib/wow/wow.min.js"></script>
-        <script src="public/lib/easing/easing.min.js"></script>
-        <script src="public/lib/waypoints/waypoints.min.js"></script>
-        <script src="public/lib/counterup/counterup.min.js"></script>
-        <script src="public/lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="public/lib/lightbox/js/lightbox.min.js"></script>
-
-
-        <!--script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script -->
-        <script src="public/js/main.js"></script>
-
 
     </body>
 

@@ -20,9 +20,9 @@
                             <th>Satuan Kerja</th>
                             <th>Pagu</th>
                             <th>HPS</th>
-                            <th>Nilai Tender</th>
+                            {{-- <th>Nilai Tender</th>
                             <th>Efisiensi</th>
-                            <th>Rekanan</th>
+                            <th>Rekanan</th> --}}
                         </tr>
                     </thead>
                     <tbody class="table">
@@ -36,17 +36,28 @@
                                 <td>{{ $item->nama_satker }}</td>
                                 <td>{{ number_format($item->pagu, 0, ',', '.') }}</td>
                                 <td>{{ number_format($item->hps, 0, ',', '.') }}</td>
-                                <td>#</td>
-                                {{-- <td>{{ number_format($item->nilai_tender, 0, ',', '.') }}</td> --}}
-                                <td>#</td>
+                                {{-- Menentukan nilai tender --}}
                                 {{-- @if ($item->nilai_kontrak == 1)
-                                <td>{{ number_format($item->hps - $item->nilai_kontrak, 0, ',', '.') }}
-                                </td>
-                            @else
-                                <td>{{ number_format($item->hps - $item->nilai_negosiasi, 0, ',', '.') }}
-                                </td>
-                            @endif --}}
-                                <td>#</td>
+                                    <td>{{ number_format($item->nilai_kontrak, 0, ',', '.') }}
+                                    </td>
+                                @elseif ($item->nilai_negosiasi == 1)
+                                    <td>{{ number_format($item->nilai_negosiasi, 0, ',', '.') }}
+                                    </td>
+                                @else
+                                    <td>{{ number_format($item->nilai_terkoreksi, 0, ',', '.') }}
+                                    </td>
+                                @endif --}}
+
+                                {{-- Menentukan nilai efiensi --}}
+                                {{-- @if ($item->nilai_kontrak == 1)
+                                    <td>{{ number_format($item->hps - $item->nilai_kontrak, 0, ',', '.') }}
+                                        <b>{{ ' (' . round((($item->hps - $item->nilai_kontrak) / $item->hps) * 100) . '%)' }}</b>
+                                    </td>
+                                @else
+                                    <td>{{ number_format($item->hps - $item->nilai_negosiasi, 0, ',', '.') }}
+                                        <b>{{ ' (' . round((($item->hps - $item->nilai_negosiasi) / $item->hps) * 100) . '%)' }}</b>
+                                    </td>
+                                @endif --}}
                                 {{-- <td>{{ $item->nama_penyedia }}</td> --}}
                             </tr>
                         @endforeach

@@ -70,7 +70,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    // 'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'Asia/Jakarta'),
 
     /*
     |--------------------------------------------------------------------------
@@ -169,7 +170,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
-        // PragmaRX\Google2FALaravel\ServiceProvider::class,
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -187,6 +189,9 @@ return [
         // 'Example' => App\Facades\Example::class,
         // 'Google2FA' => PragmaRX\Google2FALaravel\Facade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'NoCaptcha' => Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+
     ])->toArray(),
 
 ];

@@ -29,10 +29,10 @@
                 <table id="example" class="table" style="width:100%;">
                     <thead class="table">
                         <tr>
-                            <th>No</th>
+                            <th style="width: 10%">No</th>
                             <th>Kategori</th>
                             <th>Uraian</th>
-                            <th>File</th>
+                            <th style="width: 20%">File</th>
                         </tr>
                     </thead>
                     <tbody class="table">
@@ -45,7 +45,9 @@
                                 <td>{{ $item->kategori }}</td>
                                 <td>{{ $item->judul }}</td>
                                 <td><a href="{{ asset('/storage/materis/' . $item->file) }}" target="_blank"
-                                        style="color: #8C0C14"><i class="bi bi-cloud-download-fill"></i></a></td>
+                                        style="color: #8C0C14" type="button"><button class="btn btn-sm btn-dark border-0"
+                                            style="background-color: #8C0C14">Lihat/Unduh</button></a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

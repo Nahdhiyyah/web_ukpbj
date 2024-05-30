@@ -19,7 +19,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <table class="table table-striped my-3" id="example">
+                            <table class="table my-3" id="example">
                                 <thead>
                                     <tr>
                                         <th>No</th>

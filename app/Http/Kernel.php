@@ -67,8 +67,8 @@ class Kernel extends HttpKernel
 
         'role' => \App\Http\Middleware\CheckRole::class,
         '2fa' => \PragmaRX\Google2FALaravel\Middleware::class,
-        
+
         'adminMiddleware' => \App\Http\Middleware\IsAdmin::class,
-        'userMiddleware' => \App\Http\Middleware\MasyarakatMiddleware::class,
+        'userMiddleware' => \App\Http\Middleware\IsUser::class,
     ];
 }

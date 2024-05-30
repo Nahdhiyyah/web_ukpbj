@@ -23,12 +23,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="public/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="public/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="public/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="public/css/style.css">
-    <link rel="stylesheet" href="public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 
     {{-- Datatables --}}
     <!-- Scripts -->
@@ -55,14 +55,6 @@
 </head>
 
 <body style="background-image: url(public/img/bg_session.png);">
-
-    <!-- Spinner Start -->
-    {{-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border position-relative text-primary" style="width: 6rem; height: 6rem;" role="status"></div>
-        <i class="fa fa-laptop-code fa-2x text-primary position-absolute top-50 start-50 translate-middle"></i>
-    </div> --}}
-
-
     <!-- Brand & Contact Start -->
     <div class="container-fluid py-0 px-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="row align-items-center top-bar">
@@ -91,7 +83,7 @@
                             </div>
                             <div class="ps-3">
                                 <p class="mb-2">Jam Buka</p>
-                                <h6 class="mb-0">Mon - Fri, 8:00 - 9:00</h6>
+                                <h6 class="mb-0">Mon - Fri, 7:00 - 14:00</h6>
                             </div>
                         </div>
                     </div>
@@ -102,7 +94,7 @@
                             </div>
                             <div class="ps-3">
                                 <p class="mb-2">Telepon</p>
-                                <h6 class="mb-0">+012 345 6789</h6>
+                                <h6 class="mb-0">(0333) 425001 - 425011</h6>
                             </div>
                         </div>
                     </div>
@@ -113,7 +105,6 @@
     </div>
     <!-- Brand & Contact End -->
 
-    </nav -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s"
         style="background-color: #8C0C14;">
         <a href="#" class="navbar-brand ms-3 d-lg-none">MENU</a>
@@ -139,6 +130,7 @@
                     <div class="dropdown-menu border-0 rounded-0 rounded-bottom m-0">
                         <a href="{{ route('pengumuman.home') }}" class="dropdown-item">Pengumuman</a>
                         <a href="{{ route('berita.home') }}" class="dropdown-item">Berita</a>
+                        <a href="{{ route('home.gallery') }}" class="dropdown-item">Gallery</a>
                     </div>
                 </div>
 
@@ -150,14 +142,18 @@
                         <a href="{{ route('e_purchasing.home') }}" class="dropdown-item">E-Purchasing</a>
                         <a href="{{ route('pencatatan.swakelola.home') }}" class="dropdown-item">Pencatatan
                             Swakelola</a>
-                        <div class="nav-item dropdown">
+                        <a href="{{ route('pencatatan.non_spk.home') }}" class="dropdown-item">Pencatatan
+                            Non SPK</a>
+
+                        {{-- link sirup error --}}
+                        {{-- <div class="nav-item dropdown">
                             <a href="#" class="dropdown-item dropdown-toggle"
                                 data-bs-toggle="dropdown">Sirup</a>
                             <div class="dropdown-menu border-0 rounded-0 rounded-bottom m-0">
-                                <a href="#" class="dropdown-item">Swakelola</a>
-                                <a href="#" class="dropdown-item">Penyedia</a>
+                                <a href="{{ route('sirup_swakelola.home') }}" class="dropdown-item">Swakelola</a>
+                                <a href="{{ route('penyedia.home') }}" class="dropdown-item">Penyedia</a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
@@ -165,8 +161,8 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Layanan</a>
                     <div class="dropdown-menu border-0 rounded-0 rounded-bottom m-0">
                         <a href="{{ route('home.user.konsul') }}" class="dropdown-item">Konsultasi</a>
-                        <a href="#" class="dropdown-item">Survey Kepuasan</a>
-                        <a href="#" class="dropdown-item">Pusat Pengaduan</a>
+                        <a href="{{ route('home.user.survey') }}" class="dropdown-item">Survey Kepuasan</a>
+                        <a href="{{ route('home.user.pengaduan') }}" class="dropdown-item">Pusat Pengaduan</a>
                     </div>
                 </div>
 
@@ -203,11 +199,22 @@
     @include('sweetalert::alert')
     @yield('navbar')
     @include('user.footer')
-    
+
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"
         style="background-color: #8C0C14; border:none"><i class="bi bi-arrow-up"></i></a>
 
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
+    <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+    <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ asset('lib/counterup/counterup.min.js') }}"></script>
+    <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('lib/lightbox/js/lightbox.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    
 </body>
 
 </html>

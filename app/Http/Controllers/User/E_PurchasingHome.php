@@ -17,15 +17,15 @@ class E_PurchasingHome extends Controller
         $ta = date('Y');
         $e_purchasing = DB::table('e_purchasing')
             ->leftJoin('komoditas', 'komoditas.kd_komoditas', '=', 'e_purchasing.kd_komoditas')
-            ->leftJoin('satkers', 'satkers.kd_satker', '=', 'e_purchasing.satker_id')
+            ->leftJoin('satker', 'satker.kd_satker', '=', 'e_purchasing.satker_id')
             ->select('e_purchasing.no_paket',
                 'e_purchasing.nama_paket',
                 'e_purchasing.total',
                 'e_purchasing.total_harga',
                 'e_purchasing.jml_jenis_produk',
                 'e_purchasing.kuantitas',
-                'satkers.nama_satker',
-                'satkers.kd_satker',
+                'satker.nama_satker',
+                'satker.kd_satker',
                 'komoditas.nama_komoditas',
                 'komoditas.jenis_katalog')
             ->where('tahun_anggaran', $ta)
@@ -42,7 +42,7 @@ class E_PurchasingHome extends Controller
     {
         $ta = date('Y');
         $no_paket = DB::table('e_purchasing')
-            ->leftJoin('satkers', 'satkers.kd_satker', '=', 'e_purchasing.satker_id')
+            ->leftJoin('satker', 'satker.kd_satker', '=', 'e_purchasing.satker_id')
             ->where('no_paket', $no_paket)
             ->select('e_purchasing.no_paket',
                 'e_purchasing.nama_paket',
@@ -52,8 +52,8 @@ class E_PurchasingHome extends Controller
                 'e_purchasing.jml_jenis_produk',
                 'e_purchasing.kd_produk',
                 'e_purchasing.ongkos_kirim',
-                'satkers.nama_satker',
-                'satkers.kd_satker')
+                'satker.nama_satker',
+                'satker.kd_satker')
             ->get();
 
         return View('user.data_pengadaan.e_purchasinghome.detail_paket')->with('paket', $no_paket);
@@ -63,7 +63,7 @@ class E_PurchasingHome extends Controller
     {
         $ta = date('Y');
         $kd_satker = DB::table('e_purchasing')
-            ->leftJoin('satkers', 'satkers.kd_satker', '=', 'e_purchasing.satker_id')
+            ->leftJoin('satker', 'satkers.kd_satker', '=', 'e_purchasing.satker_id')
             ->where('kd_satker', $kd_satker)
             ->select('e_purchasing.no_paket',
                 'e_purchasing.nama_paket',
@@ -73,8 +73,8 @@ class E_PurchasingHome extends Controller
                 'e_purchasing.jml_jenis_produk',
                 'e_purchasing.kd_produk',
                 'e_purchasing.ongkos_kirim',
-                'satkers.nama_satker',
-                'satkers.kd_satker')
+                'satker.nama_satker',
+                'satker.kd_satker')
             ->get();
 
         return View('user.data_pengadaan.e_purchasinghome.detail_satker_epurchasing')->with('satker', $kd_satker);

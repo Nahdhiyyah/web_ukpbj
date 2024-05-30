@@ -16,22 +16,24 @@ class PencatatanSwakelolaController extends Controller
      */
     public function index(Request $request)
     {
-        $pagination = 10;
-
         if (Auth::id()) {
             $role = Auth()->user()->role;
             if ($role == 'admin' || $role == 'super_admin') {
                 $ta = date('Y');
                 $swakelola = DB::table('swakelolas')
-                    ->where('swakelolas.tahun_anggaran', $ta)
-                    ->select('swakelolas.kd_rup', 'swakelolas.nama_paket', 'swakelolas.nama_satker', 'swakelolas.pagu', 'swakelolas.total_realisasi', 'swakelolas.status_swakelola_pct_ket')
+                    ->select('swakelolas.kd_rup', 
+                    'swakelolas.nama_paket', 
+                    'swakelolas.nama_satker', 
+                    'swakelolas.pagu', 
+                    'swakelolas.total_realisasi', 
+                    'swakelolas.status_swakelola_pct_ket')
                     ->get();
                 return view('admin.data_pengadaan.swakelola.swakelola')->with([
                     'swakelola' => $swakelola,
                 ]);
             } else {
                 Alert::error('Error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
-                // return view('error');
+                return back();
             }
         }
     }
@@ -101,49 +103,9 @@ class PencatatanSwakelolaController extends Controller
         } else {
             Alert::error('Error', 'Data Pencatatan Swakelola gagal disimpan!');
         }
-        // });
 
-        // return redirect('swakelola.index');
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
+        return redirect()->route('swakelola.index');
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

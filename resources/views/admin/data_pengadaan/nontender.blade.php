@@ -19,7 +19,7 @@
                                                  style="background-color: #8C0C14; border:none">Muat Data Non
                                                 Tender</a>
                                         </div>
-                                        <table class="table table-striped my-3" id="example" style="width:100%">
+                                        <table class="table my-3" id="example" style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>

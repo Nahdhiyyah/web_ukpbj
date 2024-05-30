@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Admin\Pengumuman;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectRespons;
+use DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class PengumumanHome extends Controller
@@ -16,7 +15,7 @@ class PengumumanHome extends Controller
      */
     public function index()
     {
-        $pengumuman = Pengumuman::latest()->paginate(10);
+        $pengumuman = Pengumuman::latest()->get();
         return view('user.pengumuman.homePengumuman', compact('pengumuman'));
     }
 

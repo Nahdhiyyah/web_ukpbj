@@ -19,7 +19,7 @@
                                                  style="background-color: #8C0C14; border:none">Muat Data Satuan Kerja</a>
                                         </div>
                                     </div>
-                                    <table class="table table-striped my-3" id="example">
+                                    <table class="table my-3" id="example">
                                         <thead>
                                             <tr>
                                                 <th>No</th>

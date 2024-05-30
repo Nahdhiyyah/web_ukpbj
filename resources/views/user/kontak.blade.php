@@ -32,7 +32,7 @@
                 <h1 class="col-lg-6 col-md-12 py-2 ">Hubungi Kami</h1>
 
                 <div class="col-lg-6 col-md-12 py-2" style="text-align: justify; color:black">
-                    <img src="img/UKPBJ Logo.png" alt="ukpbj" width="250">
+                    <img src="public/img/UKPBJ Logo.png" alt="ukpbj" width="250">
                     <p> Bagian Pengadaan Barang dan Jasa <br /> Sekretariat Daerah Kabupaten Banyuwangi <br />
                         <br />
                         Jalan Jenderal A. Yani No. 100 Banyuwangi 68411 <br />
@@ -51,6 +51,7 @@
                 </iframe>
             </div>
         </div>
+        
     </body>
 
     </html>

@@ -15,8 +15,9 @@
                 <table id="example" class="table" style="width:100%; ">
                     <thead class="table">
                         <tr>
-                            <th>No</th>
+                            <th style="width: 10%">No</th>
                             <th>Judul</th>
+                            <th style="width: 20%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="table">
@@ -26,7 +27,15 @@
                         @foreach ($berita as $item)
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td><a href="{{ route('show.berita.home', $item->id) }}"> {{ $item->judul }}</a></td>
+                                <td>{{ $item->judul }}</td>
+                                <td>
+                                    <form action="{{ route('show.berita.home', $item->id) }}" method="GET">
+                                        <button type="submit" class="btn btn-sm border-0 btn-dark m-1"
+                                            title="Hapus konsultasi" style="width: 75px; background-color:#8C0C14">
+                                            Lihat
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -39,5 +48,4 @@
     <script>
         $('#example').DataTable();
     </script>
-    
 @endsection
