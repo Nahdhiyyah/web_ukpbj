@@ -1,43 +1,206 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Admin') }}
-        </h2>
-    </x-slot>
+@extends('admin.main')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in as admin!") }}
-                </div>
-                <div class="row">
-                    <button class="p-6" style="background-color: darkgray">
-                        <a href="{{ route('pengumuman') }}">Pengumuman</a>
-                    </button>
-                    <button class="p-6" style="background-color: darkgray">
-                        <a href="{{ route('berita') }}">Berita</a>
-                    </button>
-                    <button class="p-6" style="background-color: darkgray">
-                        <a href="{{ route('tender') }}">Data Tender</a>
-                    </button>
-                    <button class="p-6" style="background-color: darkgray">
-                        <a href="{{ route('non_tender') }}">Data Non Tender</a>
-                    </button>
-                    <button class="p-6" style="background-color: darkgray">
-                        <a href="{{ route('e_purchasing') }}">Data E-Purchasing</a>
-                    </button>
-                    <button class="p-6" style="background-color: darkgray">
-                        <a href="{{ route('penyedia') }}">Data Penyedia</a>
-                    </button>
-                    <button class="p-6" style="background-color: darkgray">
-                        <a href="{{ route('swakelola') }}">Data Swakelola</a>
-                    </button>
-                    <button class="p-6" style="background-color: darkgray">
-                        <a href="{{ route('gallery') }}">Gallery</a>
-                    </button>
-                </div>
+@section('title', 'Dashboard')
+
+@section('content')
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        {{-- <x-app-layout> --}}
+            <div class="container-fluid " style="padding-top: 0.5cm">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <!-- Small boxes (Stat box) -->
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <!-- small box -->
+                                <div class="small-box bg-info">
+                                    <div class="inner">
+                                        <h3>84 paket</h3>
+                                        <p>Tender</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="nav-icon fas fa-book"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3">
+                                <!-- small box -->
+                                <div class="small-box bg-success">
+                                    <div class="inner">
+                                        <h3>4097 paket</h3>
+
+                                        <p>Non - Tender</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-search"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3">
+                                <!-- small box -->
+                                <div class="small-box bg-warning">
+                                    <div class="inner">
+                                        <h3>30 paket</h3>
+
+                                        <p>Pencatatan</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="nav-icon fas fa-edit"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3">
+                                <!-- small box -->
+                                <div class="small-box bg-danger">
+                                    <div class="inner">
+                                        <h3>300 paket</h3>
+
+                                        <p>E-Purchasing</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="nav-icon fas fa-copy"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                        </div>
+                        <!-- /.row -->
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>Data Survey</h1>
+                            </div>
+                        </div>
+                    </div><!-- /.container-fluid -->
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- AREA CHART -->
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Area Chart</h3>
+
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart">
+                                            <canvas id="areaChart"
+                                                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+
+                                <!-- DONUT CHART -->
+                                <div class="card card-danger">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Donut Chart</h3>
+
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="donutChart"
+                                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+
+                                <!-- PIE CHART -->
+                                <div class="card card-danger">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Pie Chart</h3>
+
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="pieChart"
+                                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+
+                            </div>
+                            <!-- /.col (LEFT) -->
+                            <div class="col-md-6">
+                                <!-- LINE CHART -->
+                                <div class="card card-info">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Line Chart</h3>
+
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart">
+                                            <canvas id="lineChart"
+                                                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- /.col (RIGHT) -->
+                        </div>
+                        <!-- /.row -->
+                    </div><!-- /.container-fluid -->
+                </section>
+                <!-- /.content -->
             </div>
-        </div>
+        {{-- </x-app-layout> --}}
     </div>
-</x-app-layout>
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Add Content Here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- ./wrapper -->
+@endsection

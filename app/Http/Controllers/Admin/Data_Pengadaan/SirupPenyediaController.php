@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Alert;
 
 class SirupPenyediaController extends Controller
 {
@@ -16,10 +17,11 @@ class SirupPenyediaController extends Controller
     {
         if (Auth::id) {
             $role = Auth()->user()->role;
-            if ($role == 'admin') {
+            if ($role == 'admin' || $role == 'super_admin') {
                 return view('admin.sirup_penyedia');
             } else {
-                return view('error');
+                // return view('error');
+                Alert::error('error', 'Anda tidak bisa mengakses halaman yang anda tuju!');
             }
         }
     }

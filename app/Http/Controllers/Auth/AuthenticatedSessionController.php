@@ -14,19 +14,20 @@ class AuthenticatedSessionController extends Controller
 {
     public function index()
     {
-        if(Auth::id()){
+        if (Auth::id()) {
             $role = Auth()->user()->role;
-            
-            if ($role== 'super_admin') {
-                return view('superAdmin.superAdminHome');
-            } elseif ($role== 'admin') {
+
+            if ($role == 'super_admin') {
+                return view('admin.adminHome');
+            } elseif ($role == 'admin') {
                 return view('admin.adminHome');
             } else {
-                return view('Dashboard');
+                // return view('user.beranda');
+                return redirect()->route('home');
             }
         }
     }
-    
+
     /**
      * Display the login view.
      */
