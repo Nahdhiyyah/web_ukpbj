@@ -61,7 +61,7 @@
                                                     </td>
                                                     <td class="text-center">
                                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                            action="{{ route('destroy.konsul.admin', $item->id) }}"
+                                                            action="{{ route('hapus.konsul.admin', $item->id) }}"
                                                             method="GET">
                                                             @if ($item->status != 'Terkirim')
                                                                 <a href="{{ route('show.balas.admin', $item->id) }}"

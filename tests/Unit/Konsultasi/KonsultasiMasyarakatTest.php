@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Konsultasi;
 
-use App\Models\Konsultasi\KonsultasiModel;
 use App\Models\Konsultasi\BalasanKonsultasiModel;
+use App\Models\Konsultasi\KonsultasiModel;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-class KonsultasiTest extends TestCase
+class KonsultasiMasyarakatTest extends TestCase
 {
     /**
      * A basic unit test example.
@@ -18,21 +18,30 @@ class KonsultasiTest extends TestCase
 
     public function test_index_user()
     {
-        $data_konsul = [
+        $user = User::factory()->create();
+        // Menyimulasikan pengguna yang diautentikasi
+        $this->actingAs($user);
+        
+        // Arrange: Buat beberapa entri dalam KonsultasiModel
+        $konsultasi = KonsultasiModel::create([
             'user_id' => 11,
             'subjek' => 'Akun SPSE',
             'isi' => 'Bagaimana cara mendaftar akun SPSE?',
             'attachment' => 'jadwal sempro.pdf',
             'status' => 'Terkirim',
             'is_deleted' => 'no',
-        ];
+            'created_at' => now()->subDays(2),
+        ]);
 
-        // Act: Fetch the data from the database
-        $konsultasi = KonsultasiModel::where($data_konsul)->first();
+        $response = $this->get('daftar konsultasi user');
+        
+        $response->assertViewHas('user_konsul', function ($user_konsul) {
+            return $user_konsul->every(fn ($konsul) => $konsul->is_deleted === 'no');
+        });
 
-        // Assert: Check that the data is as expected
-        $this->assertNotNull($konsultasi);
-        $this->assertEquals($konsultasi->created_at, KonsultasiModel::orderBy('created_at', 'desc')->first()->created_at);
+        // Periksa urutan data berdasarkan created_at
+        $user_konsul = $response->original->getData()['user_konsul'];
+        $this->assertTrue($user_konsul->first()->is($konsultasi));
     }
 
     public function test_user_create()
@@ -176,7 +185,6 @@ class KonsultasiTest extends TestCase
         // Buat konsultasi dan balasan
         $konsultasi = KonsultasiModel::factory()->create();
         $balasan = BalasanKonsultasiModel::factory()->create(['konsul_id' => $konsultasi->id]);
-        // $balasan2 = BalasanKonsultasiModel::factory()->create(['konsul_id' => $konsultasi->id]);
 
         // Panggil metode user_show
         $response = $this->withoutMiddleware()->get(route('show.konsul.user', $konsultasi->id));
@@ -190,9 +198,126 @@ class KonsultasiTest extends TestCase
         // Periksa bahwa data balasan dikirimkan ke tampilan
         $response->assertViewHas('balasan');
 
-        // Memeriksa bahwa tampilan berisi data yang diharapkan
         $response->assertSee($konsultasi->title);
         $response->assertSee($balasan->balasan);
-        // $response->assertSee($balasan2->balasan);
+    }
+
+    public function test_user_edit()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $konsultasi = KonsultasiModel::factory()->create();
+
+        // Memanggil metode user_create_balas dengan id konsultasi yang baru dibuat
+        $response = $this->get("edit konsultasi{$konsultasi->id}");
+
+        // Memeriksa bahwa halaman telah berhasil dimuat
+        $response->assertStatus(200);
+
+        // Memeriksa bahwa variabel user_balas telah dikirimkan ke tampilan
+        $response->assertViewHas('user_konsul', $konsultasi);
+    }
+
+    public function test_user_update_without_attachment()
+    {
+        // Create a user and authenticate
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        // Create a KonsultasiModel instance
+        $konsultasi = KonsultasiModel::factory()->create();
+
+        // New data for update
+        $requestData = [
+            'subjek' => 'Updated Subjek',
+            'isi' => 'Updated Isi',
+        ];
+
+        // Make a POST request to update the konsultasi
+        $response = $this->withoutMiddleware()->put(route('update.konsul.user', $konsultasi->id), $requestData);
+
+        // Check that the page redirects correctly
+        $response->assertRedirect(route('daftar.konsul.user'));
+
+        // Check that the data was updated in the database
+        $this->assertDatabaseHas('konsultasi', [
+            'id' => $konsultasi->id,
+            'subjek' => 'Updated Subjek',
+            'isi' => 'Updated Isi',
+            'attachment' => $konsultasi->attachment, // Should remain unchanged
+        ]);
+    }
+
+    public function test_user_update_with_attachment()
+    {
+        // Fake the storage
+        Storage::fake('public');
+
+        // Create a user and authenticate
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        // Create a KonsultasiModel instance with an existing attachment
+        $konsultasi = KonsultasiModel::factory()->create();
+
+        // Fake a new attachment
+        $newAttachment = UploadedFile::fake()->create('new_attachment.pdf', 500);
+
+        // New data for update
+        $requestData = [
+            'subjek' => 'Updated Subjek',
+            'isi' => 'Updated Isi',
+            'attachment' => $newAttachment,
+        ];
+
+        // Make a PATCH request to update the konsultasi
+        $response = $this->withoutMiddleware()->put(route('update.konsul.user', $konsultasi->id), $requestData);
+
+        // Check that the page redirects correctly
+        $response->assertRedirect(route('daftar.konsul.user'));
+
+        // Check that the old attachment was deleted and the new one was stored
+        Storage::assertMissing('public/konsultasi/old_attachment.pdf');
+        Storage::assertExists('public/konsultasi/new_attachment.pdf');
+
+        // Check that the data was updated in the database
+        $this->assertDatabaseHas('konsultasi', [
+            'id' => $konsultasi->id,
+            'subjek' => 'Updated Subjek',
+            'isi' => 'Updated Isi',
+            'attachment' => 'new_attachment.pdf',
+        ]);
+    }
+
+    public function test_hapus_konsultasi()
+    {
+        // Create a user and authenticate
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        // Create a KonsultasiModel instance
+        $konsultasi = KonsultasiModel::factory()->create();
+
+        // Create related BalasanKonsultasiModel instances
+        $balasan = BalasanKonsultasiModel::factory()->create(['konsul_id' => $konsultasi->id]);
+
+        // Make a DELETE request to destroy the konsultasi
+        $response = $this->withoutMiddleware()->get(route('hapus.konsul.admin', $konsultasi->id));
+
+        // Check that the page redirects correctly
+        $response->assertRedirect(route('daftar.konsul.admin'));
+
+        // Check that the KonsultasiModel instance is marked as deleted
+        $this->assertDatabaseHas('konsultasi', [
+            'id' => $konsultasi->id,
+            'is_deleted' => 'yes',
+        ]);
+
+        // Check that the related BalasanKonsultasiModel instances are marked as deleted
+        $this->assertDatabaseHas('balasan_konsultasi', [
+            'id' => $balasan->id,
+            'is_deleted' => 'yes',
+        ]);
     }
 }

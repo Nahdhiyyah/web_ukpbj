@@ -1,16 +1,6 @@
 @extends ('user.main')
 @section('navbar')
     @auth
-
-        {{-- <div class="container-fluid px-5 py-3">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <p>{{ Auth::user()->name }}</p>
-                <small>{{ '(' . Auth::user()->role . ')' }}</small>
-                <a href="{{ route('profile.edit') }}" target="_blank">
-                    <img src="{{ asset('/storage/users-avatar/' . Auth::user()->avatar) }}" class="circle mx-auto"
-                        style="width: 30px; height:30px; border-radius: 50%; object-fit: cover"></a>
-            </div>
-        </div> --}}
         <div class="container">
             <div class="container pt-5">
                 <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px; ">
@@ -71,7 +61,7 @@
                                             </td>
                                             <td class="text-center">
                                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                    action="{{ route('destroy.konsul.user', $item->id) }}" method="GET">
+                                                    action="{{ route('hapus.konsul.user', $item->id) }}" method="GET">
                                                     <a href="{{ route('show.konsul.user', $item->id) }}"
                                                         class="btn btn-sm btn-dark m-1" type="button"
                                                         title="Lihat detail konsultasi" style="width: 75px">

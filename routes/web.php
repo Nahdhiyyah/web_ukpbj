@@ -251,7 +251,7 @@ Route::middleware(['auth', 'adminMiddleware', 'verified'])
         Route::get('daftar konsultasi admin', [KonsultasiAdminController::class, 'index_admin'])->name('daftar.konsul.admin');
         Route::get('create balasan{konsul_id}', [KonsultasiAdminController::class, 'create_balasan'])->name('create.balas.admin');
         Route::post('store balasan{konsul_id}', [KonsultasiAdminController::class, 'store_balasan'])->name('store.balas.admin');
-        Route::get('destroy konsul{konsul_id}', [KonsultasiAdminController::class, 'destroy'])->name('destroy.konsul.admin');
+        Route::get('destroy konsul{konsul_id}', [KonsultasiAdminController::class, 'hapus_konsultasi_admin'])->name('hapus.konsul.admin');
         Route::get('edit status konsultasi{konsul_id}', [KonsultasiAdminController::class, 'status_edit'])->name('edit.status');
         Route::get('show balasan status{konsul_id}', [KonsultasiAdminController::class, 'konsul_show_status'])->name('show.balas.status');
         Route::get('show balasan{konsul_id}', [KonsultasiAdminController::class, 'konsul_show'])->name('show.balas.admin');
@@ -306,7 +306,7 @@ Route::middleware(['auth', 'userMiddleware', 'verified'])
         Route::get('daftar konsultasi user', [KonsultasiMasyarakatController::class, 'index_user'])->name('daftar.konsul.user');
         Route::get('create-konsultasi', [KonsultasiMasyarakatController::class, 'user_create'])->name('create.konsul.user');
         Route::post('store konsultasi', [KonsultasiMasyarakatController::class, 'user_store'])->name('store.konsul.user');
-        Route::get('destroy konsultasi{konsul_id}', [KonsultasiMasyarakatController::class, 'destroy'])->name('destroy.konsul.user');
+        Route::get('hapus konsultasi{konsul_id}', [KonsultasiMasyarakatController::class, 'hapus_konsultasi'])->name('hapus.konsul.user');
         Route::get('edit konsultasi{konsul_id}', [KonsultasiMasyarakatController::class, 'user_edit'])->name('edit.konsul.user');
         Route::put('update konsultasi{konsul_id}', [KonsultasiMasyarakatController::class, 'user_update'])->name('update.konsul.user');
         Route::get('show konsultasi{konsul_id}', [KonsultasiMasyarakatController::class, 'user_show'])->name('show.konsul.user');

@@ -166,25 +166,14 @@ class KonsultasiMasyarakatController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function hapus_konsultasi(string $id)
     {
         $is_deleted = 'yes';
         $user_konsul = KonsultasiModel::findOrFail($id);
 
-        // Retrieve attachment before deleting the record
-        // $attachment = $user_konsul->attachment;
-
         // Delete records
         $user_konsul->update(['is_deleted'=> $is_deleted]);
         BalasanKonsultasiModel::where('konsul_id', $id)->update(['is_deleted'=> $is_deleted]);
-
-        // Construct the path for storage deletion
-        // $attach = 'public/konsultasi/'. $attachment;
-
-        // Check if the file exists before attempting to delete it
-        // if (Storage::exists($attach)) {
-        //     Storage::delete($attach);
-        // }
 
         Alert::success('success', 'Konsultasi anda berhasil dihapus!');
 

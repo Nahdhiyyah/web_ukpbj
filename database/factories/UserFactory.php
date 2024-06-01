@@ -20,9 +20,8 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            // 'id' => 12,
             'name' => 'Nadia',
-            'email' => 'alpmamdcvmxbbcmzzcrga@gmail.com',
+            'email' => 'abbhlbkwfzjmgcmzzcrga@gmail.com',
             'email_verified_at' => now(),
             'password' => 'nadiaaaa',
             'avatar' => 'avatar.png',
@@ -30,7 +29,7 @@ class UserFactory extends Factory
             // 'remember_token' => null,
             // 'created_at'=> '2024-05-26 14:06:18',
             // 'updated_at' => '2024-05-26 14:07:58',
-            'role' => 'user',
+            'role' => 'admin',
             // 'google2fa_secret' => null
         ];
     }
