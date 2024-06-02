@@ -21,7 +21,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => 'Nadia',
-            'email' => 'abbhlbkwfzjmgcmzzcrga@gmail.com',
+            'email' => 'bnbbax@gmail.com',
             'email_verified_at' => now(),
             'password' => 'nadiaaaa',
             'avatar' => 'avatar.png',
