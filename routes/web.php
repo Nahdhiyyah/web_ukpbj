@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Data_Pengadaan\SirupPenyediaController;
 use App\Http\Controllers\Admin\Data_Pengadaan\SirupSwakelolaController;
 use App\Http\Controllers\Admin\Data_Pengadaan\TenderController;
 use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\MateriController;
 use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\Publikasi\BeritaController;
@@ -153,6 +154,13 @@ Route::middleware(['auth', 'adminMiddleware', 'verified'])
         // Admin Home
         Route::get('admin home', [AdminHomeController::class, 'index'])->name('admin');
 
+        // Banner
+        Route::get('banner', [BannerController::class, 'index'])->name('banner.index');
+        Route::post('banner store', [BannerController::class, 'store'])->name('banner.store');
+        Route::put('banner update{id}', [BannerController::class, 'update'])->name('banner.update');
+        Route::get('banner destroy{id}', [BannerController::class, 'destroy'])->name('banner.destroy');
+
+        
         // Manage User Untuk Super Admin
         Route::get('manage_user', [SuperadminController::class, 'index'])->name('manage.user.index');
         Route::put('edit user role{id}', [SuperadminController::class, 'update'])->name('manage.user.update');
@@ -273,34 +281,34 @@ Route::middleware(['auth', 'adminMiddleware', 'verified'])
         Route::get('survey', [SurveyController::class, 'index'])->name('survey.index');
         Route::get('create survey', [SurveyController::class, 'create'])->name('survey.create');
         Route::post('store survey', [SurveyController::class, 'store'])->name('survey.store');
-        Route::get('destroy survey{id}', [SurveyController::class, 'destroy'])->name('survey.destroy');
+        Route::get('hapus survey{id}', [SurveyController::class, 'hapus_survey'])->name('survey.hapus');
         Route::get('edit survey{id}', [SurveyController::class, 'edit'])->name('survey.edit');
         Route::put('update survey{id}', [SurveyController::class, 'update'])->name('survey.update');
 
         Route::get('pertanyaan survey{id}', [PertanyaanController::class, 'index'])->name('pertanyaan.index');
         Route::get('create pertanyaan{id}', [PertanyaanController::class, 'create'])->name('pertanyaan.create');
         Route::post('store pertanyaan{id}', [PertanyaanController::class, 'store'])->name('pertanyaan.store');
-        Route::get('destroy pertanyaan{id}', [PertanyaanController::class, 'destroy'])->name('pertanyaan.destroy');
+        Route::get('hapus pertanyaan{id}', [PertanyaanController::class, 'hapus_pertanyaan'])->name('pertanyaan.hapus');
 
         Route::get('lihat jawaban survey', [RekapSurveyController::class, 'index'])->name('jawaban.index');
         Route::get('detail jawaban {user_id} {survey_id} {tanggal}', [RekapSurveyController::class, 'show'])->name('jawaban.detail');
-        Route::get('hapus jawaban {user_id} {survey_id} {tanggal}', [RekapSurveyController::class, 'destroy'])->name('jawaban.hapus');
+        Route::get('hapus jawaban {user_id} {survey_id} {tanggal}', [RekapSurveyController::class, 'hapus_rekap'])->name('jawaban.hapus');
 
         // Pengaduan Admin
         Route::get('daftar pengaduan admin', [PengaduanAdminController::class, 'index_admin'])->name('daftar.pengaduan.admin');
         Route::get('buat balasan pengaduan{id}', [PengaduanAdminController::class, 'create_balasan'])->name('create.balaspengaduan.admin');
         Route::post('submit balasan pengaduan{id}', [PengaduanAdminController::class, 'store_balasan'])->name('store.balaspengaduan.admin');
-        Route::get('hapus pengaduan{id}', [PengaduanAdminController::class, 'destroy'])->name('destroy.pengaduan.admin');
-        Route::get('edit status pengaduan{id}', [PengaduanAdminController::class, 'status_edit'])->name('edit.statuspengaduan');
+        Route::get('hapus pengaduan admin{id}', [PengaduanAdminController::class, 'hapus_pengaduan_admin'])->name('hapus.pengaduan.admin');
+        // Route::get('edit status pengaduan{id}', [PengaduanAdminController::class, 'status_edit'])->name('edit.statuspengaduan');
         Route::get('lihat pengaduan{id}', [PengaduanAdminController::class, 'pengaduan_show_status'])->name('show.balaspengaduan.status');
         Route::get('lihat balasan pengaduan{id}', [PengaduanAdminController::class, 'pengaduan_show'])->name('show.balaspengaduan.admin');
-        Route::put('update status pengaduan{id}', [PengaduanAdminController::class, 'status_update'])->name('statuspengaduan.update');
+        Route::put('update-status-pengaduan-{id}', [PengaduanAdminController::class, 'status_update'])->name('statuspengaduan.update');
         Route::get('rekap pengaduan', [RekapPengaduanController::class, 'index'])->name('rekap.pengaduan');
         Route::get('cetak rekap pengaduan', [RekapPengaduanController::class, 'cetakPdf'])->name('cetak.rekap.pengaduan');
 
     });
 
-Route::middleware(['auth', 'userMiddleware', 'verified'])
+Route::middleware(['auth', 'masyarakatMiddleware', 'verified'])
     ->group(function () {
         // fitur konsultasi masyarakat
         Route::get('daftar konsultasi user', [KonsultasiMasyarakatController::class, 'index_user'])->name('daftar.konsul.user');
@@ -322,8 +330,8 @@ Route::middleware(['auth', 'userMiddleware', 'verified'])
         Route::get('daftar pengaduan user', [PengaduanMasyarakatController::class, 'index_user'])->name('daftar.pengaduan.user');
         Route::get('create pengaduan', [PengaduanMasyarakatController::class, 'user_create'])->name('create.pengaduan.user');
         Route::post('store pengaduan', [PengaduanMasyarakatController::class, 'user_store'])->name('store.pengaduan.user');
-        Route::get('destroy pengaduan{id}', [PengaduanMasyarakatController::class, 'destroy'])->name('destroy.pengaduan.user');
-        Route::put('update pengaduan{id}', [PengaduanMasyarakatController::class, 'user_update'])->name('update.pengaduan.user');
+        Route::get('hapus pengaduan user{id}', [PengaduanMasyarakatController::class, 'hapus_pengaduan_user'])->name('hapus.pengaduan.user');
+        // Route::put('update pengaduan{id}', [PengaduanMasyarakatController::class, 'user_update'])->name('update.pengaduan.user');
         // Route::get('edit pengaduan{id}', [PengaduanMasyarakatController::class, 'user_edit'])->name('edit.pengaduan.user');
         Route::get('show pengaduan{id}', [PengaduanMasyarakatController::class, 'user_show'])->name('show.pengaduan.user');
 

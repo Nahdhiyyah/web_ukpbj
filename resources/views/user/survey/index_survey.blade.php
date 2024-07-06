@@ -25,7 +25,7 @@
                         <h6 class="section-title bg-white text-center px-3" style="color: #8C0C14;">Survey</h6>
                     </div>
                 </div>
-            
+
                 <div class="container-fluid py-5">
                     <div class="row">
                         @foreach ($survey as $item)
@@ -44,7 +44,7 @@
                                                 </div>
                                             </div>
                                             <p class="card-text">{{ $item->judul_survey }}</p>
-                                            <a href="{{ route('index.pertanyaan.user', $item->id) }}" class="btn btn-primary"
+                                            <a href="{{ route('index.pertanyaan.user', $item->id) }}" class="btn btn-danger"
                                                 style="background-color: #8C0C14; border:none">Isi Sekarang</a>
                                         </div>
                                     </div>
@@ -55,7 +55,6 @@
                 </div>
             </div>
         </body>
-
         </html>
     @endauth
 @endsection

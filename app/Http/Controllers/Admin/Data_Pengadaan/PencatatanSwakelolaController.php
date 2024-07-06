@@ -18,7 +18,7 @@ class PencatatanSwakelolaController extends Controller
     {
         if (Auth::id()) {
             $role = Auth()->user()->role;
-            if ($role == 'admin' || $role == 'super_admin') {
+            if ($role == 'Pengelola Layanan' || $role == 'Super Admin') {
                 $ta = date('Y');
                 $swakelola = DB::table('swakelolas')
                     ->select('swakelolas.kd_rup', 

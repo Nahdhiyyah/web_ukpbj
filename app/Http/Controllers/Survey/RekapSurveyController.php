@@ -54,7 +54,7 @@ class RekapSurveyController extends Controller
 
     }
 
-    public function destroy($user_id, $survey_id, $tanggal)
+    public function hapus_rekap($user_id, $survey_id, $tanggal)
     {
         $is_deleted = 'yes';
         $query1 = JawabanSurveyPGModel::where('user_id', $user_id)

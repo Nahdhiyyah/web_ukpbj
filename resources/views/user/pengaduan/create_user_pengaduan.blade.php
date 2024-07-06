@@ -53,7 +53,7 @@
                                 </div>
 
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button type="submit" class="btn btn-md btn-primary"
+                                    <button type="submit" class="btn btn-md btn-danger"
                                         style="background-color: #8C0C14; border:none">Adukan</button>
                                     <button type="cancel" class="btn btn-md btn-warning">Cancel</button>
                                 </div>

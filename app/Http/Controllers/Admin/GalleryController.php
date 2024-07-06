@@ -18,7 +18,7 @@ class GalleryController extends Controller
     {
         if (Auth::id()) {
             $role = Auth()->user()->role;
-            if ($role == 'admin' || $role == 'super_admin') {
+            if ($role == 'Pengelola Layanan' || $role == 'Super Admin') {
                 $gallery = Gallery::orderBy('created_at', 'desc')->get();
 
                 return view('admin.gallery.gallery')->with('gallery', $gallery);

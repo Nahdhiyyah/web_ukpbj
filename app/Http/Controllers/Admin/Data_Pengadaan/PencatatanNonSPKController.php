@@ -17,7 +17,7 @@ class PencatatanNonSPKController extends Controller
     {
         if (Auth::id()) {
             $role = Auth()->user()->role;
-            if ($role == 'admin' || $role == 'super_admin') {
+            if ($role == 'Pengelola Layanan' || $role == 'Super Admin') {
 
                 $non_spk = DB::table('non_spk')->orderBy('tgl_buat_paket', 'desc')->get();
 

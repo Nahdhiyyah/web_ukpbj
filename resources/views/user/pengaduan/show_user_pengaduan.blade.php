@@ -49,49 +49,56 @@
                             @endif
                             <small class="mt-3"><i>{{ $user_pengaduan->created_at }}</i></small>
                         </div>
-
                     </div>
                 </div>
-                <hr>
-                <div class="row">
-                    <p style="text-align: justify; color: black;">{!! html_entity_decode($user_pengaduan->isi) !!}</p>
-                    <p> <i class="fas fa-paperclip"></i>
-                        @if ($user_pengaduan->attachment == true)
-                            <a href="{{ asset('/storage/pengaduan/' . $user_pengaduan->attachment) }}" target="_blank"
-                                style="color: #8C0C14"><small>{{ $user_pengaduan->attachment }}</small></a>
-                    </p>
-                @else
-                    <small><i>{{ $user_pengaduan->attachment }}</i></small>
-                    @endif
+                <div class="alert alert-success" role="alert">
+                    <div class="row">
+                        <p style="text-align: justify; color: black;">{!! html_entity_decode($user_pengaduan->isi) !!}</p>
+                        <p> <i class="fas fa-paperclip"></i>
+                            <a href="{{ asset('/storage/pengaduan/' . $user_pengaduan->attachment) }}"
+                                target="_blank"><small>{{ $user_pengaduan->attachment }}</small></a>
+                        </p>
+                    </div>
                 </div>
-            </div>
-            @if ($user_pengaduan->balasan && $user_pengaduan->user_id_petugas)
-                    <div class="card border-0 p-5 mx-5 mt-3 shadow">
-                        <div class="row mb-2">
-                            <div class="col my-auto">
-                                <h3>Pesan Balasan</h3>
-                            </div>
-                            <div class="col">
-                                <div class="d-grid justify-content-md-end">
-                                    <h6>Dibalas oleh : <b>{{ $user_pengaduan->user_petugas->name }}</b>
-                                        <small>{{ '(' . $user_pengaduan->user_petugas->role . ')' }}</small>
-                                    </h6>
-                                    <small><i>Pada {{ $user_pengaduan->created_at }}</i></small>
-                                </div>
+
+                @if ($user_pengaduan->balasan && $user_pengaduan->user_id_petugas)
+                    <hr class="my-5">
+                    <div class="row mb-2">
+                        <div class="col my-auto">
+                            <h3>Pesan Balasan</h3>
+                        </div>
+                        <div class="col">
+                            <div class="d-grid justify-content-md-end">
+                                <h6>Dibalas oleh : <b>{{ $user_pengaduan->user_petugas->name }}</b>
+                                    <small>{{ '(' . $user_pengaduan->user_petugas->role . ')' }}</small>
+                                </h6>
+                                <small><i>Pada {{ $user_pengaduan->created_at }}</i></small>
                             </div>
                         </div>
-                        <hr>
+                    </div>
+                    <div class="alert alert-secondary" role="alert">
                         <div class="row">
                             <p style="text-align: justify; color: black;">{!! html_entity_decode($user_pengaduan->balasan) !!}</p>
                         </div>
                     </div>
-                @else
-                    <div class="card border-0 p-5 mx-5 mt-3 shadow">
-                        <div class="row">
-                            <p style="text-align: center; color: black;">{!! html_entity_decode($user_pengaduan->balasan) !!}</p>
-                        </div>
-                    </div>
-                @endif
+            </div>
+        @else
+            <hr class="my-5">
+            <div class="alert alert-secondary" role="alert">
+                <div class="row">
+                    <p style="text-align: justify; color: black;">{!! html_entity_decode($user_pengaduan->balasan) !!}</p>
+                </div>
+            </div>
+            @endif
+
+            @if ($user_pengaduan->status == 'Selesai')
+                <div class="text-center mt-5">
+                    <h6>Apakah anda puas dengan pelayanan kami?</h6>
+                    <a href="{{ route('index.survey.user') }}" class="btn btn-danger px-3" type="button"
+                        style="background-color: #8C0C14; border:none">Isi survey sekarang</a>
+                </div>
+            @endif
+        </div>
         </div>
     </body>
 

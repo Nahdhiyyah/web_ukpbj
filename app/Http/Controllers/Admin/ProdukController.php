@@ -17,7 +17,7 @@ class ProdukController extends Controller
         if (Auth::id()) {
             $role = Auth()->user()->role;
 
-            if ($role == 'admin' || $role == 'super_admin') {
+            if ($role == 'Pengelola Layanan' || $role == 'Super Admin') {
                 $produk = Produk::orderBy('created_at', 'desc')->get();
 
                 return view('admin.produks.index')->with([

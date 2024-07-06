@@ -18,7 +18,7 @@ class BeritaController extends Controller
     {
         if (Auth::id()) {
             $role = Auth()->user()->role;
-            if ($role == 'admin' || $role == 'super_admin') {
+            if ($role == 'Pengelola Layanan' || $role == 'Super Admin') {
 
                 $berita = Berita::where('is_deleted', 'no')->orderBy('created_at', 'desc')->get();
 
@@ -156,7 +156,7 @@ class BeritaController extends Controller
     public function destroy(string $id)
     {
         $is_deleted = 'yes';
-        $query = Staff::findOrFail($id)->update(['is_deleted' => $is_deleted]);
+        $query = Berita::findOrFail($id)->update(['is_deleted' => $is_deleted]);
 
         if ($query == true) {
             Alert::success('success', 'Data berhasil dihapus!');

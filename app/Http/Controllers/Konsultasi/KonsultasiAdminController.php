@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Konsultasi;
 
-use App\Http\Controllers\Controller;
 use Alert;
+use App\Http\Controllers\Controller;
 use App\Models\Konsultasi\BalasanKonsultasiModel;
 use App\Models\Konsultasi\KonsultasiModel;
-use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,6 +17,7 @@ class KonsultasiAdminController extends Controller
     public function index_admin()
     {
         $admin_konsul = KonsultasiModel::where('is_deleted', 'no')->orderBy('created_at', 'desc')->get();
+
         return View('admin.konsultasi.index_admin_konsul', compact('admin_konsul'));
     }
 
@@ -27,6 +27,7 @@ class KonsultasiAdminController extends Controller
     public function create_balasan($id)
     {
         $balasan = KonsultasiModel::findOrFail($id);
+
         return view('admin.konsultasi.create_admin_balas', compact('balasan'));
     }
 
@@ -79,6 +80,7 @@ class KonsultasiAdminController extends Controller
     {
         $user_konsul = KonsultasiModel::findOrFail($id);
         $admin_konsul = BalasankonsultasiModel::get();
+
         return view('admin.konsultasi.show_admin_konsul', compact('user_konsul', 'admin_konsul'));
     }
 
@@ -112,22 +114,22 @@ class KonsultasiAdminController extends Controller
     //     return redirect()->route('daftar.konsul.admin');
     // }
 
-    public function status_update(Request $request, string $id)
-    {
-        $this->validate($request, [
-            'status' => 'required',
-        ]);
+    // public function status_update(Request $request, string $id)
+    // {
+    //     $this->validate($request, [
+    //         'status' => 'required',
+    //     ]);
 
-        //get data Blog by ID
-        $admin_konsul = KonsultasiModel::findOrFail($id);
+    //     //get data Blog by ID
+    //     $admin_konsul = KonsultasiModel::findOrFail($id);
 
-        $admin_konsul->update([
-            'status' => $request->status,
-        ]);
-        Alert::success('success', 'Status konsultasi berhasil diedit!');
+    //     $admin_konsul->update([
+    //         'status' => $request->status,
+    //     ]);
+    //     Alert::success('success', 'Status konsultasi berhasil diedit!');
 
-        return redirect()->route('daftar.konsul.admin');
-    }
+    //     return redirect()->route('daftar.konsul.admin');
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -135,15 +137,15 @@ class KonsultasiAdminController extends Controller
     public function hapus_konsultasi_admin(string $id)
     {
         $is_deleted = 'yes';
-        $query = KonsultasiModel::findOrFail($id)->update(['is_deleted'=> $is_deleted]);
-        BalasanKonsultasiModel::where('konsul_id', $id)->update(['is_deleted'=> $is_deleted]);
-        
+        $query = KonsultasiModel::findOrFail($id)->update(['is_deleted' => $is_deleted]);
+        BalasanKonsultasiModel::where('konsul_id', $id)->update(['is_deleted' => $is_deleted]);
+
         if ($query == true) {
             Alert::success('success', 'Data berhasil dihapus!');
         } else {
             Alert::error('Error', 'Data gagal dihapus');
         }
-        
+
         //redirect to index
         return redirect()->route('daftar.konsul.admin');
     }

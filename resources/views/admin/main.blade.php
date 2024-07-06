@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title') - UKPBJ</title>
 
@@ -139,7 +140,7 @@
                             <a href="#" class="nav-link">
                                 <i class="fa fa-bullhorn nav-icon"></i>
                                 <p>
-                                    Publikasi
+                                    Publikasi dan Konten
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
@@ -154,6 +155,12 @@
                                     <a href="{{ route('berita.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Berita</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('banner.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Banner</p>
                                     </a>
                                 </li>
                             </ul>

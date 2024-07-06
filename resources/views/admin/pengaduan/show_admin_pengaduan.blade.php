@@ -6,8 +6,9 @@
             <div class="container-fluid" style="padding-top: 0.5cm">
                 <div class="card border-0 p-5 shadow">
                     <div class="row">
+
                         <div class="col">
-                            <small>Nama Pengadu : <b><u>{{$pengaduan->user->name}}</u></b></small><br>
+                            <small>Nama Pengadu : <b><u>{{ $pengaduan->user->name }}</u></b></small><br>
                             <small>Judul Pengaduan : </small>
                             <h3 class="center" style="text-align: justify;">{{ $pengaduan->judul }}</h3>
                         </div>
@@ -24,6 +25,9 @@
                             </div>
                         </div>
 
+                    </div>
+
+                    <div class="alert alert-success" role="alert">
                         <div class="row">
                             <p style="text-align: justify; color: black;">{!! html_entity_decode($pengaduan->isi) !!}</p>
                             <p> <i class="fas fa-paperclip"></i>
@@ -36,15 +40,27 @@
                             @endif
                         </div>
                     </div>
+
+
+
                     @if ($pengaduan->status == 'Terkirim' || $pengaduan->status == 'Sedang diproses')
-                        <div class="d-grid gap-2 justify-content-md-end">
-                            <a href="{{ route('create.balaspengaduan.admin', $pengaduan->id) }}" class="btn btn-primary px-3"
-                                type="button" style="background-color: #8C0C14; border:none">Buat Balasan</a>
-                        </div>
+                        @if ($pengaduan->balasan == 'Belum ada balasan')
+                            <div class="d-grid gap-2 justify-content-md-end">
+                                <a href="{{ route('create.balaspengaduan.admin', $pengaduan->id) }}"
+                                    class="btn btn-primary px-3" type="button"
+                                    style="background-color: #8C0C14; border:none">Buat Balasan</a>
+                            </div>
+                        @else
+                            <div class="d-grid gap-2 justify-content-md-end">
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#modalEditStatus">
+                                    Edit Status Pengaduan
+                                </button>
+                            </div>
+                        @endif
                     @endif
-                </div>
-                @if ($pengaduan->balasan && $pengaduan->user_id_petugas)
-                    <div class="card border-0 p-5 shadow">
+                    @if ($pengaduan->balasan && $pengaduan->user_id_petugas)
+                        <hr class="my-5">
                         <div class="row mb-2">
                             <div class="col my-auto">
                                 <h3>Pesan Balasan</h3>
@@ -58,19 +74,66 @@
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <div class="row">
-                            <p style="text-align: justify; color: black;">{!! html_entity_decode($pengaduan->balasan) !!}</p>
+                        <div class="alert alert-secondary" role="alert">
+                            <div class="row">
+                                <p style="text-align: justify; color: black;">{!! html_entity_decode($pengaduan->balasan) !!}</p>
+                            </div>
                         </div>
+                </div>
+            </div>
+        @else
+            <hr class="my-5">
+            <div class="alert alert-secondary" role="alert">
+                <div class="row">
+                    <p style="text-align: center; color: black;">{!! html_entity_decode($pengaduan->balasan) !!}</p>
+                </div>
+            </div>
+            @endif
+        </div>
+        </div>
+
+
+        {{-- MODAL --}}
+        <div class="modal fade" id="modalEditStatus" tabindex="-1" role="dialog" aria-labelledby="modalEditStatusLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEditStatusLabel">Edit Status Pengaduan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                @else
-                    <div class="card border-0 p-5 shadow">
-                        <div class="row">
-                            <p style="text-align: center; color: black;">{!! html_entity_decode($pengaduan->balasan) !!}</p>
+                    <form id="formEditStatus" action="{{ route('statuspengaduan.update', $pengaduan->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select class="form-control" id="status" name="status">
+                                    <option value="Sedang diproses"
+                                        {{ $pengaduan->status === 'Sedang diproses' ? 'selected' : '' }}>Sedang diproses
+                                    </option>
+                                    <option value="Selesai" {{ $pengaduan->status === 'Selesai' ? 'selected' : '' }}>Selesai
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                @endif
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" id="btnSaveChanges" onclick="submitForm()" class="btn btn-primary">Save
+                                changes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+        </div>
+        <script>
+            function submitForm() {
+                document.getElementById('formEditStatus').submit();
+            }
+        </script>
+
     @endauth
 @endsection

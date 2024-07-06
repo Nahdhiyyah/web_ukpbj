@@ -47,7 +47,7 @@
                     <div class="col-lg-6 my-auto px-2">
                         {{-- <h2>Hai, {{ Auth::user()->name }}</h2> --}}
                         <h2>Ada yang bisa kami bantu ?</h2>
-                        <a href="{{ route('daftar.pengaduan.user') }}" class="btn btn-primary"
+                        <a href="{{ route('daftar.pengaduan.user') }}" class="btn btn-danger"
                             style="background-color: #8C0C14; border:none" type="button">Adukan Sekarang !</a>
                     </div>
                 </div>

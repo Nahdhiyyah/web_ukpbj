@@ -17,18 +17,18 @@ class SuperadminController extends Controller
     {
         if (Auth::id()) {
             $role = Auth()->user()->role;
-            if ($role == 'super_admin') {
+            if ($role == 'Super Admin') {
                 $manage_user = User::orderBy('updated_at', 'desc')->get();
 
                 return view('super_admin.manage_user_index')->with('manage_user', $manage_user);
             } else {
                 Alert::error('Error', 'Maaf anda tidak bisa mengakses halaman yang anda tuju!');
+
                 return back();
             }
         }
     }
 
-   
     public function edit(string $id)
     {
         $manage_user = User::findorfail($id);
@@ -45,7 +45,6 @@ class SuperadminController extends Controller
         $manage_user = User::findOrFail($id)->update([
             'role' => $request->role,
         ]);
-
 
         if ($manage_user) {
             Alert::success('Success', 'Role user berhasil diupdate!');

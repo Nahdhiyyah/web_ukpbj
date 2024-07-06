@@ -18,7 +18,7 @@ class JawabanController extends Controller
      */
     public function index_survey()
     {
-        $survey = SurveyModel::orderBy('created_at', 'desc')->get();
+        $survey = SurveyModel::where('is_deleted', 'no')->orderBy('created_at', 'desc')->get();
         return view('user.survey.index_survey', compact('survey'));
     }
 

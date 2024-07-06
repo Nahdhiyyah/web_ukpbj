@@ -32,7 +32,7 @@
                 @endphp
                 <div class="container-fluid py-5">
                     <div class="card shadow p-5 my-3 w-75 mx-auto" style="border: none">
-                        <h1 class="mx-auto">Survey Question</h1>
+                        <h3 class="mx-auto">{{$pertanyaan[0]->survey->judul_survey}}</h3>
                         <form action="{{ route('survey.store.user') }}" method="POST" enctype="multipart/form-data"
                             id="surveyForm">
                             @foreach ($pertanyaan as $item)
@@ -41,7 +41,6 @@
                                     <div class="m-5">
                                         <input type="hidden" name="pertanyaan_id" value="{{ $item->id }}">
                                         <input type="hidden" name="survey_id" value="{{ $item->survey->id }}">
-                                        {{-- <input type="hidden" name="tanggal" value="{{ date() }}"> --}}
                                         <h5>{{ $no++ }}. {!! $item->pertanyaan !!}</h5>
                                         @if ($item->jenis == 'Pilihan ganda')
                                             <div class="form-check">

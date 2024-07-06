@@ -24,9 +24,10 @@
                                 <small class="mt-3"><i>{{ $user_konsul->created_at }}</i></small>
                             </div>
                         </div>
-                        
+                    </div>
+
+                    <div class="alert alert-success" role="alert">
                         <div class="row">
-                            <hr>
                             <p style="text-align: justify; color: black;">{!! html_entity_decode($user_konsul->isi) !!}</p>
                             <p> <i class="fas fa-paperclip"></i>
                                 @if ($user_konsul->attachment == 1)
@@ -38,17 +39,17 @@
                             @endif
                         </div>
                     </div>
+
                     @if ($user_konsul->status == 'Terkirim' || $user_konsul->status == 'Sedang diproses')
                         <div class="d-grid gap-2 justify-content-md-end">
                             <a href="{{ route('create.balas.admin', $user_konsul->id) }}" class="btn btn-primary px-3"
                                 type="button" style="background-color: #8C0C14; border:none">Buat Balasan</a>
                         </div>
                     @endif
-                </div>
 
-                @foreach ($admin_konsul as $item)
-                    @if ($user_konsul->id == $item->konsul_id)
-                        <div class="card border-0 p-5 shadow">
+                    @foreach ($admin_konsul as $item)
+                        @if ($user_konsul->id == $item->konsul_id)
+                            <hr class="my-5">
                             <div class="row mb-2">
                                 <div class="col my-auto">
                                     <h3>Pesan Balasan</h3>
@@ -62,13 +63,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr>
-                            <div class="row">
-                                <p style="text-align: justify; color: black;">{!! html_entity_decode($item->balasan) !!}</p>
+                            <div class="alert alert-secondary" role="alert">
+                                <div class="row">
+                                    <p style="text-align: justify; color: black;">{!! html_entity_decode($item->balasan) !!}</p>
+                                </div>
                             </div>
-                        </div>
-                    @endif
-                @endforeach
+                        @endif
+                    @endforeach
+                </div>
             </div>
         </div>
     @endauth

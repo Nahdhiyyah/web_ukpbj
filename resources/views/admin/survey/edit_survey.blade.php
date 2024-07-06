@@ -49,12 +49,12 @@
                                         <input type="radio" class="btn-check" name="status" id="primary-outlined"
                                             autocomplete="off" value="Active">
                                         <label class="btn btn-outline-primary" for="primary-outlined">Active <i
-                                                class="fas fa-times"></i></label>
+                                                class="fas fa-check"></i></label>
 
                                         <input type="radio" class="btn-check" name="status" id="secondary-outlined"
                                             autocomplete="off" value="Not Active">
                                         <label class="btn btn-outline-secondary" for="secondary-outlined">Not Active <i
-                                                class="fas fa-check"></i></label>
+                                                class="fas fa-times"></i></label>
 
                                         <!-- error message untuk content -->
                                         @error('status')

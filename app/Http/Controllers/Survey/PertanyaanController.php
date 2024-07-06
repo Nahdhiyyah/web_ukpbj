@@ -56,42 +56,34 @@ class PertanyaanController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        $pertanyaan = PertanyaanSurveyModel::findorfail($id);
-        return view('admin.survey.edit_pertanyaan', compact('pertanyaan'));
-    }
+    // public function edit(string $id)
+    // {
+    //     $pertanyaan = PertanyaanSurveyModel::findorfail($id);
+    //     return view('admin.survey.edit_pertanyaan', compact('pertanyaan'));
+    // }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
-    {
-        //get data by ID
-        $pertanyaan = PertanyaanSurveyModel::findOrFail($id);
-        $pertanyaan->update([
-        'pertanyaan' => $request->pertanyaan,  
-        ]);
+    // public function update(Request $request, $id)
+    // {
+    //     //get data by ID
+    //     $pertanyaan = PertanyaanSurveyModel::findOrFail($id);
+    //     $pertanyaan->update([
+    //     'pertanyaan' => $request->pertanyaan,  
+    //     ]);
 
-        Alert::success('Success', 'Data Survey berhasil diupdate!');
+    //     Alert::success('Success', 'Data Survey berhasil diupdate!');
 
-        return redirect()->route('survey.index');
-    }
+    //     return redirect()->route('survey.index');
+    // }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function hapus_pertanyaan(string $id)
     {
         $is_deleted = 'yes';
         $query = PertanyaanSurveyModel::findOrFail($id)->update(['is_deleted'=> $is_deleted]);

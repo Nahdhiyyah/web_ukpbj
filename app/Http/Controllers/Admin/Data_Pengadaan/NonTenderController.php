@@ -19,7 +19,7 @@ class NonTenderController extends Controller
 
         if (Auth::id()) {
             $role = Auth()->user()->role;
-            if ($role == 'admin' || $role == 'super_admin') {
+            if ($role == 'Pengelola Layanan' || $role == 'Super Admin') {
 
                 $nontender = NonTender::orderBy('id', 'desc')->get();
 
@@ -85,9 +85,9 @@ class NonTenderController extends Controller
                 'status_nontender' => $key['status_nontender'],
                 'tgl_pengumuman_nontender' => $key['tgl_pengumuman_nontender'],
                 'tgl_selesai_nontender' => $key['tgl_selesai_nontender'],
-                'dibuat_oleh' => $key['dibuat_oleh'],
-                'nip_pembuat_paket' => $key['nip_pembuat_paket'],
-                'nama_pembuat_paket' => $key['nama_pembuat_paket'],
+                // 'dibuat_oleh' => $key['dibuat_oleh'],
+                // 'nip_pembuat_paket' => $key['nip_pembuat_paket'],
+                // 'nama_pembuat_paket' => $key['nama_pembuat_paket'],
                 'kd_penyedia' => $key['kd_penyedia'],
                 'nama_penyedia' => $key['nama_penyedia'],
                 'npwp_penyedia' => $key['npwp_penyedia'],

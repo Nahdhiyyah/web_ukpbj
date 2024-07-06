@@ -20,8 +20,8 @@ class PengaduanModelFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => 11,
-            'user_id_petugas' => 4,
+            'user_id' => 303,
+            'user_id_petugas' => 302,
             'attachment' => 'example.pdf',
             'judul'=> 'Kerusakan gedung',
             'isi'=> 'ada kerusakan dibagian belakang gedung',

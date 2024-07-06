@@ -20,7 +20,7 @@ class PengumumanController extends Controller
         if (Auth::id()) {
             $role = Auth()->user()->role;
 
-            if ($role == 'admin' || $role == 'super_admin') {
+            if ($role == 'Pengelola Layanan' || $role == 'Super Admin') {
 
                 $pengumuman = Pengumuman::where('is_deleted', 'no')->orderBy('created_at', 'desc')->get();
 

@@ -32,7 +32,7 @@
                                     </div>
 
                                     <div class="mb-3 row">
-                                        <label class="col-sm-2 col-form-label">Message</label>
+                                        <label class="col-sm-2 col-form-label">Isi</label>
                                         <div class="col-md-10">
                                             <textarea type="text" autocomplete="off" class="form-control textarea @error('isi') is-invalid @enderror"
                                                 name="isi" value="{{ old('isi', $user_konsul->isi) }}" placeholder="Apa yang ingin anda konsultasikan?"
@@ -85,7 +85,7 @@
 
             <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('message');
+                CKEDITOR.replace('isi');
             </script>
         </div>
 

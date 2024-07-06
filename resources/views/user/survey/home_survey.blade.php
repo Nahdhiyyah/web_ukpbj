@@ -39,7 +39,7 @@
                     <div class="col-lg-6 my-auto px-2">
                         <h3>Selamat datang di survey pelayanan publik UKPBJ Kabupaten Banyuwangi</h3>
                         <h5>Silahkan isi survey ini berdasarkan penilaian anda</h5>
-                        <a href="{{ route('index.survey.user') }}" class="btn btn-primary"
+                        <a href="{{ route('index.survey.user') }}" class="btn btn-danger"
                             style="background-color: #8C0C14; border:none" type="button">Isi sekarang!</a>
                     </div>
                 </div>

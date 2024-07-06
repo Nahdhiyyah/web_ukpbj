@@ -17,7 +17,7 @@ class TenderController extends Controller
     {
         if (Auth::id()) {
             $role = Auth()->user()->role;
-            if ($role == 'admin' || $role == 'super_admin') {
+            if ($role == 'Pengelola Layanan' || $role == 'Super Admin') {
                 $tender = DB::table('tender')
                     // ->leftJoin('tender_selesai', 'tender.kd_tender', '=', 'tender_selesai.kd_tender')
                     ->select('tender.*',
@@ -54,8 +54,8 @@ class TenderController extends Controller
      */
     public function display_tender(Request $request)
     {
-        // $ta = date('Y');
-        $ta = 2023;
+        $ta = date('Y');
+
         $arrContextOptions = [
             'ssl' => [
                 'verify_peer' => false,
@@ -63,13 +63,14 @@ class TenderController extends Controller
             ],
         ];
 
-        $url = 'https://isb.lkpp.go.id/isb-2/api/dcb2fcee-bdde-48ce-b32d-31b1ffeba0d5/json/10195/SPSE-TenderSelesai/tipe/4:4/parameter/'.$ta.':72';
+        $url = 'https://isb.lkpp.go.id/isb-2/api/dcb2fcee-bdde-48ce-b32d-31b1ffeba0d5/json/10195/SPSE-TenderSelesai/tipe/4:4/parameter/2023:72';
 
         $konten = file_get_contents($url, false, stream_context_create($arrContextOptions));
         $jsonData = json_decode($konten, true);
         $finalarray = [];
         // hapus data dulu sebelum insert
-        // DB::table('tender')->delete()->where('tahun_anggaran', $ta);
+        DB::table('tender')->delete();
+        
         foreach ($jsonData as $key) {
             // insert data json to table database
             $query = DB::table('tender')->insert([
@@ -103,7 +104,7 @@ class TenderController extends Controller
             ]);
 
         }
-
+        
         if ($query) {
             Alert::success('Success', 'Data Tender berhasil disimpan!');
         } else {

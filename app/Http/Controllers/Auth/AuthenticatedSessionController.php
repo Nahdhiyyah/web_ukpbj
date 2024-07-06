@@ -18,7 +18,7 @@ class AuthenticatedSessionController extends Controller
         if (Auth::id()) {
             $role = Auth()->user()->role;
 
-            if ($role == 'super_admin' || $role == 'admin') {
+            if ($role == 'Super Admin' || $role == 'Pengelola Layanan') {
                 return redirect()->route('admin');
             } else {
                 return redirect()->route('home');

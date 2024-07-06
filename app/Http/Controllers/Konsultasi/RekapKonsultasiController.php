@@ -68,8 +68,6 @@ class RekapKonsultasiController extends Controller
         ];
 
         $pdf = PDF::loadView('admin.konsultasi.tabel_rekap', $data);
-
-        // $pdf->setPaper('a4', 'landscape');
         return $pdf->stream('laporan-konsultasi.pdf');
     }
 }

@@ -13,7 +13,7 @@
             <div class="card table-responsive shadow p-5" style="border: none">
                 <div class="row">
                     <div class="col-lg-3">
-                        <a href="{{ route('create.konsul.user') }}" type="button" class="btn btn-primary mb-3"
+                        <a href="{{ route('create.konsul.user') }}" type="button" class="btn btn-danger mb-3"
                             style="background-color: #8C0C14; border:none;">Buat Konsultasi Baru</a>
                     </div>
                     <div class="col-lg-9 d-grid gap-2 d-md-flex justify-content-md-end">

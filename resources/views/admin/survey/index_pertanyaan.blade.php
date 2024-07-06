@@ -42,7 +42,7 @@
                                                     <td>{{ $item->jenis }}</td>
                                                     <td class="text-center">
                                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                            action="{{ route('pertanyaan.destroy', $item->id) }}"
+                                                            action="{{ route('pertanyaan.hapus', $item->id) }}"
                                                             method="GET">
                                                             <button type="submit" class="btn btn-sm btn-danger m-1"
                                                                 title="Hapus" style="width: 75px">

@@ -20,7 +20,7 @@ class KonsultasiModelFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => 11,
+            'user_id' => 303,
             'subjek'=> 'Akun SPSE',
             'isi'=> 'bagaimana cara mendaftar akun SPSE?',
             'attachment' => 'example.pdf',

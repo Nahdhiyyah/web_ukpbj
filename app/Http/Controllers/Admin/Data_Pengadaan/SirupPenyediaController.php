@@ -18,7 +18,7 @@ class SirupPenyediaController extends Controller
     {
         if (Auth::id()) {
             $role = Auth()->user()->role;
-            if ($role == 'admin' || $role == 'super_admin') {
+            if ($role == 'Pengelola Layanan' || $role == 'Super Admin') {
                 $penyedia = DB::table('sirup_penyedia')->orderBy('tgl_buat_paket', 'desc')->get();
                 return view('admin.data_pengadaan.sirup_penyedia', compact('penyedia'));
             } else {

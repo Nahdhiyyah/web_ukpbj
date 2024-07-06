@@ -51,7 +51,7 @@
                                                     </td>
                                                     <td class="text-center">
                                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                            action="{{ route('survey.destroy', $item->id) }}" method="GET">
+                                                            action="{{ route('survey.hapus', $item->id) }}" method="GET">
                                                             <a href="{{ route('pertanyaan.index', $item->id) }}"
                                                                 class="btn btn-sm btn-success m-1" title="Lihat Pertanyaan">
                                                                 Lihat Pertanyaan

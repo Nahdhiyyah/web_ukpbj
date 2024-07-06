@@ -18,8 +18,8 @@ class StaffController extends Controller
     {
         if (Auth::id()) {
             $role = Auth()->user()->role;
-            if ($role == 'admin' || $role == 'super_admin') {
-                $staff = Staff::orderBy('created_at', 'desc')->get();
+            if ($role == 'Pengelola Layanan' || $role == 'Super Admin') {
+                $staff = Staff::where('is_deleted', 'no')->orderBy('created_at', 'desc')->get();
 
                 return view('admin.staff.index')->with('staff', $staff);
             } else {

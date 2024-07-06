@@ -61,8 +61,6 @@ class RekapPengaduanController extends Controller
         ];
 
         $pdf = PDF::loadView('admin.pengaduan.tabel_rekap', $data);
-
-        // $pdf->setPaper('a4', 'landscape');
         return $pdf->stream('rekapitulasi-pengaduan.pdf');
     }
 }

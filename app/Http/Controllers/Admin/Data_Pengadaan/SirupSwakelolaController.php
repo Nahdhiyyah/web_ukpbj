@@ -16,7 +16,7 @@ class SirupSwakelolaController extends Controller
     {
         if (Auth::id()) {
             $role = Auth()->user()->role;
-            if ($role == 'admin' || $role == 'super_admin') {
+            if ($role == 'Pengelola Layanan' || $role == 'Super Admin') {
                 $swakelola = DB::table('sirup_swakelola')->orderBy('tanggal_terakhir_di_update', 'desc')->get();
                 return view('admin.data_pengadaan.sirup_swakelola', compact('swakelola'));
             } else {

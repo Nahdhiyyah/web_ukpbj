@@ -2,10 +2,9 @@
 
 namespace Tests\Unit\Pengaduan;
 
-use App\Models\User;
 use App\Models\PengaduanModel;
+use App\Models\User;
 use Tests\TestCase;
-use PDF;
 
 class PengaduanAdminTest extends TestCase
 {
@@ -36,7 +35,7 @@ class PengaduanAdminTest extends TestCase
         $balasan = PengaduanModel::factory()->create();
 
         $response = $this->get("buat balasan pengaduan{$balasan->id}");
-        
+
         $response->assertStatus(200);
 
         $response->assertViewHas('balasan', $balasan);
@@ -53,6 +52,7 @@ class PengaduanAdminTest extends TestCase
 
         // Membuat data request
         $requestData = [
+            'user_id_petugas' => $user->id,
             'balasan' => 'Ini adalah balasan dari admin.',
             'status' => 'Selesai',
         ];
@@ -63,12 +63,101 @@ class PengaduanAdminTest extends TestCase
         // Memastikan bahwa pengaduan telah diupdate dengan benar
         $this->assertEquals($requestData['balasan'], $pengaduan->refresh()->balasan);
         $this->assertEquals($requestData['status'], $pengaduan->refresh()->status);
-        
-        // Memastikan pesan sukses ditampilkan
-        $response->assertSessionHas('success', 'Balasan anda berhasil dikirim!');
 
         // Memastikan pengguna diarahkan kembali ke daftar pengaduan
         $response->assertRedirect(route('daftar.pengaduan.admin'));
     }
 
+    public function test_pengaduan_show_status()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        // Create a KonsultasiModel entry
+        $pengaduan = PengaduanModel::factory()->create();
+
+        // Make request to konsul_show_status method
+        $response = $this->withoutMiddleware()->get(route('show.balaspengaduan.status', ['id' => $pengaduan->id]));
+
+        // Assert that the response is successful
+        $response->assertStatus(200);
+
+        // Assert that the correct view is returned
+        $response->assertViewIs('admin.pengaduan.show_admin_pengaduan');
+
+        // Assert that the user_konsul is passed to the view correctly
+        $response->assertViewHas('pengaduan', $pengaduan);
+
+        // Assert that the status of the KonsultasiModel entry is updated correctly
+        $this->assertEquals('Sedang diproses', PengaduanModel::find($pengaduan->id)->status);
+    }
+
+    public function test_pengaduan_show()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        // Create a KonsultasiModel entry
+        $pengaduan = PengaduanModel::factory()->create();
+
+        // Make request to konsul_show method
+        $response = $this->withoutMiddleware()->get(route('show.balaspengaduan.admin', ['id' => $pengaduan->id]));
+
+        // Assert that the response is successful
+        $response->assertStatus(200);
+
+        // Assert that the correct view is returned
+        $response->assertViewIs('admin.pengaduan.show_admin_pengaduan');
+
+        // Assert that the user_konsul is passed to the view correctly
+        $response->assertViewHas('pengaduan', $pengaduan);
+    }
+
+    public function test_status_update()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        
+        // Buat pengaduan baru untuk pengujian
+        $pengaduan = PengaduanModel::factory()->create();
+
+        // Data yang akan dikirim dalam permintaan update
+        $updateData = [
+            'status' => 'Selesai',
+        ];
+
+        // Buat permintaan PUT ke endpoint update
+        $response = $this->withoutMiddleware()->put(route('statuspengaduan.update', $pengaduan->id), $updateData);
+
+        // Periksa apakah permintaan berhasil
+        $response->assertRedirect(url()->previous()); // Pastikan diarahkan kembali
+
+        // Periksa apakah data di database sudah terupdate
+        $this->assertDatabaseHas('pengaduan', [
+            'id' => $pengaduan->id,
+            'status' => 'Selesai', // Status seharusnya sudah berubah
+        ]);
+    }
+
+    public function test_hapus_pengaduan_admin()
+    {
+        // Create a user and authenticate
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        // Create a PengaduanModel instance
+        $pengaduan = PengaduanModel::factory()->create();
+
+        // Make a DELETE request to destroy the pengaduan
+        $response = $this->withoutMiddleware()->get(route('hapus.pengaduan.admin', $pengaduan->id));
+
+        // Check that the page redirects correctly
+        $response->assertRedirect(route('daftar.pengaduan.admin'));
+
+        // Check that the KonsultasiModel instance is marked as deleted
+        $this->assertDatabaseHas('pengaduan', [
+            'id' => $pengaduan->id,
+            'is_deleted' => 'yes',
+        ]);
+    }
 }

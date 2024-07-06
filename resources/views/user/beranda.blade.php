@@ -49,8 +49,8 @@
         <div class="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
             <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="0" class="active"
-                        aria-current="true" aria-label="Slide 1">
+                    {{-- <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1">
                         <img class="img-fluid" src="public/img/Banner 1.png" alt="Image">
                     </button>
                     <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="1" aria-label="Slide 2">
@@ -58,11 +58,19 @@
                     </button>
                     <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="2" aria-label="Slide 3">
                         <img class="img-fluid" src="public/img/Banner 3.png" alt="Image">
-                    </button>
+                    </button> --}}
+
+                    @foreach ($banner as $index => $item)
+                        <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="{{ $index }}"
+                            class="{{ $index == 0 ? 'active' : '' }}" aria-current="{{ $index == 0 ? 'true' : 'false' }}"
+                            aria-label="Slide {{ $index + 1 }}">
+                            <img class="img-fluid" src="{{ asset('/storage/banner/' . $item->gambar) }}" alt="Image">
+                        </button>
+                    @endforeach
                 </div>
 
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
+                    {{-- <div class="carousel-item active">
                         <img class="img-fluid w-100" src="public/img/Banner 1.png" alt="Image">
                     </div>
                     <div class="carousel-item">
@@ -70,7 +78,12 @@
                     </div>
                     <div class="carousel-item">
                         <img class="img-fluid w-100" src="public/img/Banner 3.png" alt="Image">
-                    </div>
+                    </div> --}}
+                    @foreach ($banner as $index => $item)
+                        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                            <img class="img-fluid w-100" src="{{ asset('/storage/banner/' . $item->gambar) }}" alt="Image">
+                        </div>
+                    @endforeach
                 </div>
 
                 <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
@@ -82,7 +95,6 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
-
             </div>
         </div>
         <!-- Carousel End -->
@@ -91,19 +103,17 @@
         <div class="container-xxl py-5">
             <div class="container-xxl g-5">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px; ">
-                    <h6 class="section-title bg-white text-center px-2" style="color: #8C0C14;">Data Paket Pengadaan
-                        Barang
-                        Dan Jasax <?php echo session()->GET('sess_ta'); ?></h6>
+                    <h6 class="section-title bg-white text-center px-2" style="color: #8C0C14;">Data Paket Pengadaan Barang
+                        Dan Jasa</h6>
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-
                         <div class="fact-item bg-light rounded text-center h-100 p-5">
                             {{-- <i class="fa fa-certificate fa-4x text-primary mb-4"></i> --}}
                             <img class="img-fluid rounded mb-4" src="public/img/1.png" alt="">
                             <h5 class="mb-3">Tender</h5>
                             <h1 class="display-5 mb-0" data-toggle="counter-up">
-                                {{-- {{ number_format($tender->count(), 0, ',', '.') }} --}}
+                                {{ number_format($tender->count(), 0, ',', '.') }}
                             </h1>
                         </div>
                     </div>

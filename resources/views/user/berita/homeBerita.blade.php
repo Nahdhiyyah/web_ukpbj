@@ -30,7 +30,7 @@
                                 <td>{{ $item->judul }}</td>
                                 <td>
                                     <form action="{{ route('show.berita.home', $item->id) }}" method="GET">
-                                        <button type="submit" class="btn btn-sm border-0 btn-dark m-1"
+                                        <button type="submit" class="btn btn-sm border-0 btn-danger m-1"
                                             title="Hapus konsultasi" style="width: 75px; background-color:#8C0C14">
                                             Lihat
                                         </button>

@@ -20,8 +20,8 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'Nadia',
-            'email' => 'bnbbax@gmail.com',
+            'name' => 'Anonym',
+            'email' => 'cptyrqi@gmail.com',
             'email_verified_at' => now(),
             'password' => 'nadiaaaa',
             'avatar' => 'avatar.png',

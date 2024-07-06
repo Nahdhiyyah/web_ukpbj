@@ -3,17 +3,13 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Admin\Pengumuman;
 use App\Models\Admin\Berita;
 use App\Models\Admin\E_Purchasing;
 use App\Models\Admin\NonTender;
+use App\Models\Admin\Pengumuman;
 use App\Models\Admin\SwakelolaModel;
 use App\Models\Admin\TenderModel;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectRespons;
-use Illuminate\Support\Facades\Storage;
-use DB;
+use App\Models\BannerModel;
 
 class Beranda extends Controller
 {
@@ -27,55 +23,9 @@ class Beranda extends Controller
         $e_purchasing = E_Purchasing::get();
         $non_tender = NonTender::get();
         $p_swakelola = SwakelolaModel::get();
-        // $tender = TenderModel::get();
-        return view('user.beranda', compact('pengumuman', 'berita', 'e_purchasing', 'non_tender', 'p_swakelola'));
-    }
+        $tender = TenderModel::get();
+        $banner = BannerModel::where('is_deleted', 'no')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('user.beranda', compact('pengumuman', 'berita', 'e_purchasing', 'non_tender', 'p_swakelola', 'tender', 'banner'));
     }
 }

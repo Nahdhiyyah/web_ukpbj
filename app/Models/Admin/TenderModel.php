@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class TenderModel extends Model
 {
     use HasFactory;
+    public $table = 'tender';
 }

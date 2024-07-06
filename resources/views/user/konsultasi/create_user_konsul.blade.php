@@ -38,7 +38,8 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-sm-2 col-form-label">Attachment</label>
+                                    <label class="col-sm-2 col-form-label">Attachment <br /> <small
+                                            class="text-muted"><i>(Opsional)</i></small></label>
                                     <div class="col-md-10">
                                         <input type="file" class="form-control @error('attachment') is-invalid @enderror"
                                             name="attachment">
@@ -53,7 +54,7 @@
                                 </div>
 
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button type="submit" class="btn btn-md btn-primary"
+                                    <button type="submit" class="btn btn-md btn-danger"
                                         style="background-color: #8C0C14; border:none">Konsultasikan</button>
                                     <button type="cancel" class="btn btn-md btn-warning">Cancel</button>
                                 </div>
@@ -67,7 +68,7 @@
         <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 
         <script>
-            CKEDITOR.replace('message');
+            CKEDITOR.replace('isi');
         </script>
     @endauth
 @endsection

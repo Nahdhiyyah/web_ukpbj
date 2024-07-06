@@ -18,10 +18,10 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if( Auth::user() && Auth::user()->role == 'super_admin') {
+        if( Auth::user() && Auth::user()->role == 'Super Admin') {
             return $next($request);
         } 
-        else if( Auth::user() && Auth::user()->role == 'admin') {
+        else if( Auth::user() && Auth::user()->role == 'Pengelola Layanan') {
             return $next($request);
         } else {
         Alert::error('Error', 'Maaf anda tidak bisa mengakses halaman tersebut!');
